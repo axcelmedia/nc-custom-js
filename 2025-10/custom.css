@@ -76,25 +76,21 @@
 }
 
 .nisgaa-feature-post:hover .clip-path-bl{
-
 }
-.nisgaa-feature-post:hover .bg-hover .clip-path-bl
-{
-	
-}
-.nisgaa-feature-post:hover .bg-hover .clip-path-bl .featured-post-content{
-    display: block;
-	
+.nisgaa-feature-post:hover .clip-path-bl .featured-post-content{
+    opacity: 1;
+   
 }
 
 .clip-path-bl .featured-post-content{
-   display:none;
+   opacity: 0;
+  
 }
 
 .clip-path-bl:hover .featured-post-content{
     display: block;
+     opacity: 1;
 }
-
 
 
 @media screen and (max-width: 767px) {

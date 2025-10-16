@@ -79,12 +79,12 @@
 }
 .nisgaa-feature-post:hover .clip-path-bl .featured-post-content{
     opacity: 1;
-   
+    display: block;
 }
 
 .clip-path-bl .featured-post-content{
    opacity: 0;
-  
+  display:none;
 }
 
 .clip-path-bl:hover .featured-post-content{

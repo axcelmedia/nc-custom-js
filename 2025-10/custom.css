@@ -80,6 +80,7 @@
 }
 .nisgaa-feature-post:hover .clip-path-bl .featured-post-content{
     display: block;
+	 transform: scale(0); 
 }
 
 .clip-path-bl .featured-post-content{

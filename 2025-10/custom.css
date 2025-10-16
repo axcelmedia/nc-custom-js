@@ -85,7 +85,6 @@
 
 .clip-path-bl .featured-post-content{
    opacity: 0;
-    transition: transform 0.8s ease;
    display:none;
 }
 

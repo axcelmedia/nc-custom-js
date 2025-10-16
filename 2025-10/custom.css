@@ -80,16 +80,13 @@
 }
 .nisgaa-feature-post:hover .clip-path-bl .featured-post-content{
     opacity: 1;
-    transform: scaleY(1); /* expand */
     height:auto;
 }
 
 .clip-path-bl .featured-post-content{
    opacity: 0;
-    transform: scaleY(0); /* collapse vertically */
-    transform-origin: top;
     transition: transform 0.8s ease;
-    height: 0px;
+   display:none;
 }
 
 .clip-path-bl:hover .featured-post-content{

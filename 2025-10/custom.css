@@ -49,48 +49,6 @@
 	opacity: 0.85;
 	
 }
-.clip-path-bl{
-    transition: 0.3s;
-  overflow: hidden;
-  color: #fff;
-  padding: 30px;
- 
-}
-.nisgaa-feature-post
-{
-   position: relative;
-    overflow: hidden; 
-}
-.nisgaa-feature-post .bg-hover
-{
-   
-    transition: transform 0.8s ease;
-    
-  
-    
-  
-}
-.nisgaa-feature-post:hover .bg-hover 
-{
-   transform: scale(1.2);   
-}
-
-.nisgaa-feature-post:hover .clip-path-bl{
-}
-.nisgaa-feature-post:hover .clip-path-bl .featured-post-content{
-    opacity: 1;
-    display: block;
-}
-
-.clip-path-bl .featured-post-content{
-   opacity: 0;
-  display:none;
-}
-
-.clip-path-bl:hover .featured-post-content{
-    display: block;
-     opacity: 1;
-}
 
 
 @media screen and (max-width: 767px) {

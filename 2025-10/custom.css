@@ -77,7 +77,7 @@ background: url("https://nisgaaculture.dev.ideatest.ca/wp-content/uploads/2025/1
 	width: 100%;
 	cursor: pointer;
 	transition: height 0.7s ease 0.0s;
-	background-image: none;
+	background-image: none !important;
 	min-height:auto !important;
 }
 

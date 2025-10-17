@@ -135,3 +135,15 @@ jQuery(document).ready(function() {
 		*********************sectin js ends here ****************/
 
         });
+
+document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
+      const trapezoid = box.querySelector('.bg-hover');
+      if (!trapezoid) return;
+
+      box.addEventListener('mouseenter', () => {
+        trapezoid.classList.add('hover');
+      });
+      box.addEventListener('mouseleave', () => {
+        trapezoid.classList.remove('hover');
+      });
+    });

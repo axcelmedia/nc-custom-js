@@ -118,6 +118,8 @@ background: url("/wp-content/uploads/2025/10/green-Image.png") center center;
 	z-index: 1;
 	padding: 40px 30px 20px 30px;
 	color: white;
+	min-height:auto !important;
+	background-image: none !important;
 }
 
 

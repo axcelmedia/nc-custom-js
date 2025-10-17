@@ -136,7 +136,16 @@ background: url("/wp-content/uploads/2025/10/green-Image.png") center center;
 	max-height: 100px;
 }
 
+@media only screen and (max-width: 1024px) and (min-width: 768px)  {
 
+.nisgaa-feature-post {
+background-size: cover !important;
+
+}
+.nisgaa-feature-post:hover {
+	background-size: cover !important;
+}
+}
 @media screen and (max-width: 767px) {
 #banner_headline {
             font-size:30px;	

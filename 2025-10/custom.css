@@ -56,7 +56,7 @@
 .nisgaa-feature-post {
 	position: relative;
 	overflow: hidden;
-	background-size: 100%;
+	background-size: 100% !important;
 	transition: background-size 0.99s ease;
 	/* animate smoothly */
 }
@@ -66,7 +66,7 @@ background: url("https://nisgaaculture.dev.ideatest.ca/wp-content/uploads/2025/1
 }
 
 .nisgaa-feature-post:hover {
-	background-size: 120%;
+	background-size: 120% !important;
 	/* zoom in effect */
 }
 

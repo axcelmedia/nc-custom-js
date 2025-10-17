@@ -48,6 +48,83 @@
 {
 	opacity: 0.85;
 }
+:root {
+      /* ===== EASY CONFIG ===== */
+      
+      --transition-speed: 0.7s;
+    }	
+.nisgaa-feature-post {
+	position: relative;
+	overflow: hidden;
+	background-size: 100%;
+	transition: background-size 0.99s ease;
+	/* animate smoothly */
+}
+.nisgaa-feature-post.elementor-element-e694368
+{
+background: url("https://nisgaaculture.dev.ideatest.ca/wp-content/uploads/2025/10/hat-Image.png") center center;
+}
+
+.nisgaa-feature-post:hover {
+	background-size: 120%;
+	/* zoom in effect */
+}
+
+.bg-hover {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	cursor: pointer;
+	transition: height 0.7s ease 0.0s;
+	background-image: none;
+	min-height:auto !important
+}
+
+.bg-hover::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/* NOTE: no width/height attributes inside SVG, only viewBox */
+	background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 424 204' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 40C0 17.9086 17.9086 0 40 0H359.984C382.803 0 402.009 17.0796 404.676 39.7421L424 204H0V40Z' fill='%23000000EE'/></svg>");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+	transition: height var(--transition-speed) ease, filter var(--transition-speed) ease;
+	cursor: pointer;
+	z-index: 0;
+}
+
+.bg-hover:hover::before, .bg-hover.hover::before {
+	height: 100%;
+	filter: invert(46%) sepia(8%) saturate(330%) hue-rotate(56deg) brightness(90%) contrast(87%);
+
+}
+
+.clip-path-bl {
+	position: relative;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	padding: 40px 30px 20px 30px;
+	color: white;
+}
+
+
+.featured-post-content {
+	margin-bottom: 15px;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: max-height var(--transition-speed) ease, margin-bottom var(--transition-speed) ease, opacity var(--transition-speed) ease;
+}
+
+.bg-hover:hover .featured-post-content, .bg-hover.hover .featured-post-content {
+	opacity: 1;
+	max-height: 100px;
+}
 
 
 @media screen and (max-width: 767px) {

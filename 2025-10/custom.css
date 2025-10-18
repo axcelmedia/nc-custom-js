@@ -136,23 +136,9 @@ background: url("/wp-content/uploads/2025/10/green-Image.png") center center;
 	max-height: 100px;
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 768px)  {
+@media screen and (max-width: 1024px) {
 
 .nisgaa-feature-post {
-background-size: cover !important;
-
-}
-.nisgaa-feature-post:hover {
-	background-size: cover !important;
-}
-}
-@media screen and (max-width: 767px) {
-#banner_headline {
-            font-size:30px;	
-	 line-height: 1.3;
-	max-width:100%;
-	}
-	.nisgaa-feature-post {
 background-size: cover !important;
 
 }
@@ -164,4 +150,11 @@ background-size: cover !important;
    max-height: inherit;
 	
 }
+}
+@media screen and (max-width: 767px) {
+#banner_headline {
+            font-size:30px;	
+	 line-height: 1.3;
+	max-width:100%;
+	}
 }

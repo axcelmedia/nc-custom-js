@@ -148,12 +148,9 @@ background-size: cover !important;
 	.featured-post-content {
 	opacity: 1;
    max-height: inherit;
-	
 }
 	.bg-hover::before {
-	
 	filter: invert(46%) sepia(8%) saturate(330%) hue-rotate(56deg) brightness(90%) contrast(87%);
-
 }
 }
 @media screen and (max-width: 767px) {

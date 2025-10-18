@@ -161,6 +161,7 @@ background-size: cover !important;
 }
 	.featured-post-content {
 	opacity: 1;
+   max-height: inherit;
 	
 }
 }

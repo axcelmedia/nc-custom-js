@@ -159,4 +159,8 @@ background-size: cover !important;
 .nisgaa-feature-post:hover {
 	background-size: cover !important;
 }
+	.featured-post-content {
+	opacity: 1;
+	
+}
 }

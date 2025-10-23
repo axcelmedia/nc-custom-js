@@ -133,7 +133,10 @@ text-decoration:underline !important;
 .clip-path-bl .elementor-button .elementor-button-icon svg {
   width: auto;
 }
-
+.bg-hover:hover .clip-path-bl .elementor-button:hover
+{
+text-decoration:underline !important;
+}
 .featured-post-content {
 	margin-bottom: 15px;
 	max-height: 0;

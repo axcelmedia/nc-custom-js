@@ -137,6 +137,10 @@ text-decoration:underline !important;
 {
 text-decoration:underline !important;
 }
+.nisgaa-feature-post:hover .bg-hover .clip-path-bl .elementor-button
+{
+text-decoration:underline !important;
+}
 .featured-post-content {
 	margin-bottom: 15px;
 	max-height: 0;

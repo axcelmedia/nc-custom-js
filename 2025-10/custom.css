@@ -122,6 +122,14 @@ background: url("/wp-content/uploads/2025/10/green-Image.png") center center;
 	background-image: none !important;
 }
 
+.clip-path-bl .elementor-button
+{
+	text-decoration: none;
+}
+.clip-path-bl .elementor-button:hover
+{
+	text-decoration:underline;
+}
 
 .featured-post-content {
 	margin-bottom: 15px;

@@ -141,9 +141,12 @@ text-decoration:underline !important;
 {
 text-decoration:underline !important;
 }
+.nisgaa-feature-post .bg-hover .clip-path-bl .elementor-button .elementor-button-icon {
+  transition: margin-left 0.3s ease; 
+}
 .nisgaa-feature-post:hover .bg-hover .clip-path-bl .elementor-button .elementor-button-icon
 {
-	margin-left: 10px;
+	margin-left: 7px;
 }
 .featured-post-content {
 	margin-bottom: 15px;

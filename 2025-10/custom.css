@@ -133,7 +133,7 @@ text-decoration:underline !important;
 .clip-path-bl .elementor-button .elementor-button-icon svg {
   width: auto;
 }
-.bg-hover:hover .clip-path-bl .elementor-button:hover
+.bg-hover:hover .clip-path-bl .elementor-button
 {
 text-decoration:underline !important;
 }

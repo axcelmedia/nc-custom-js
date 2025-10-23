@@ -130,6 +130,9 @@ text-decoration: none !important;
 {
 text-decoration:underline !important;
 }
+.clip-path-bl .elementor-button .elementor-button-icon svg {
+  width: auto;
+}
 
 .featured-post-content {
 	margin-bottom: 15px;

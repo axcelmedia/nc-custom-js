@@ -36,7 +36,10 @@
   opacity: 1;
   transform: translateY(0);
 }
-
+.gradient-bg-overlay
+{
+	overflow: hidden;
+}
 .gradient-bg-overlay:before
 {
 	opacity: 0;

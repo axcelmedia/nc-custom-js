@@ -21,14 +21,12 @@ jQuery(document).ready(function() {
   // JSON array of headlines
   const headlines = [
     {
-       type: "partial",
-      staticText: "Nisg̱a'a is&nbsp;",
-      words: ["our community", "our history", "our heart"]
+      type: "full",
+      text: "Nisg̱a'a is rooted deeply in the land and sea"
     },
     {
-      type: "partial",
-      staticText: "Nisg̱a'a is&nbsp;",
-      words: ["our community", "our history", "our heart"]
+      type: "full",
+      text: "Our language shapes and is shaped by our environment"
     },
     {
       type: "partial",
@@ -64,8 +62,8 @@ jQuery(document).ready(function() {
       tempSpan.remove();
       
       $headline.html(
-        '<span class="static-text">' + headline.staticText + '</span>' 
-        '<span class="word-wrapper">' +
+        '<span class="static-text">' + headline.staticText + '</span>' +
+        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px;">' +
           '<span class="word-slider">' +
             '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
           '</span>' +
@@ -94,7 +92,7 @@ jQuery(document).ready(function() {
         setTimeout(function() {
           $wordSlider.find('.changing-word').last().removeClass('fade-in-up').addClass('fade-in-active');
         }, 50);
-      }, 3000);
+      }, 300);
       
       // After animation completes, clean up
       setTimeout(function() {
@@ -102,24 +100,24 @@ jQuery(document).ready(function() {
         // Remove the old word
         $currentWord.remove();
         $wordSlider.find('.changing-word').removeClass('fade-in-active');
-      }, 3000);
+      }, 900);
     } else {
       // Move to next headline - only fade if transitioning between different headline types
       if (isPartialHeadlineActive) {
         // Just switching to full headlines, use fade
-        $headline.fadeOut(3000, function() {
+        $headline.fadeOut(600, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(3000);
+          $headline.fadeIn(600);
         });
       } else {
         // Between full headlines or back to partial
-        $headline.fadeOut(3000, function() {
+        $headline.fadeOut(600, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(3000);
+          $headline.fadeIn(600);
         });
       }
     }

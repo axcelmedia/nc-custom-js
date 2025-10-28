@@ -94,7 +94,7 @@ jQuery(document).ready(function() {
         setTimeout(function() {
           $wordSlider.find('.changing-word').last().removeClass('fade-in-up').addClass('fade-in-active');
         }, 50);
-      }, 300);
+      }, 3000);
       
       // After animation completes, clean up
       setTimeout(function() {

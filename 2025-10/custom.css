@@ -15,49 +15,51 @@
 
 /* Container for the changing word to enable scroll effect */
 #banner_headline {
-  min-height: 1.2em;
+  /* Make sure parent has enough height and doesn't shift */
+  display: inline-block;
 }
 
 .static-text {
-  display: inline-block;
-  position: relative;
-  vertical-align: bottom;
+  display: inline;
+  white-space: nowrap;
 }
 
 .word-wrapper {
   display: inline-block;
   overflow: hidden;
-  vertical-align: bottom;
-  height: 1.2em;
+  vertical-align: baseline;
+  height: 1.5em; /* Increase to prevent cutting */
   position: relative;
-  min-width: 200px; /* Adjust to fit "our community" */
+  min-width: 18ch; /* Width for "our community" - adjust based on your font */
+  line-height: 1.5em;
 }
 
 .word-slider {
   position: relative;
+  height: 100%;
 }
 
 .changing-word {
   display: block;
   white-space: nowrap;
-  height: 1.2em;
-  line-height: 1.2em;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   opacity: 1;
   transform: translateY(0);
   transition: all 0.6s ease-out;
+  line-height: 1.5em;
 }
 
 .changing-word.fade-out-up {
   opacity: 0;
-  transform: translateY(-15px); /* Slight upward movement */
+  transform: translateY(-10px);
 }
 
 .changing-word.fade-in-up {
   opacity: 0;
-  transform: translateY(15px); /* Starts slightly below */
+  transform: translateY(10px);
 }
 
 .changing-word.fade-in-active {

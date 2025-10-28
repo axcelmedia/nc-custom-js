@@ -116,7 +116,7 @@ jQuery(document).ready(function() {
   showHeadline();
   
   // Start rotation every 3 seconds
-  setInterval(rotateContent, 3000);
+  setInterval(rotateContent, 9000);
 });
 
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {

@@ -102,24 +102,24 @@ jQuery(document).ready(function() {
         // Remove the old word
         $currentWord.remove();
         $wordSlider.find('.changing-word').removeClass('fade-in-active');
-      }, 900);
+      }, 3000);
     } else {
       // Move to next headline - only fade if transitioning between different headline types
       if (isPartialHeadlineActive) {
         // Just switching to full headlines, use fade
-        $headline.fadeOut(600, function() {
+        $headline.fadeOut(3000, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(600);
+          $headline.fadeIn(3000);
         });
       } else {
         // Between full headlines or back to partial
-        $headline.fadeOut(600, function() {
+        $headline.fadeOut(3000, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(600);
+          $headline.fadeIn(3000);
         });
       }
     }

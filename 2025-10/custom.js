@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
   const headlines = [
     {
       type: "full",
-      text: "Nisg̱a’a is rooted deeply in the land and sea"
+      text: "Nisġa'a is rooted deeply in the land and sea"
     },
     {
       type: "full",
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
     },
     {
       type: "partial",
-      staticText: "Nisg̱a’a is our ",
+      staticText: "Nisġa'a is our ",
       words: ["community", "history", "heart"]
     }
   ];
@@ -38,14 +38,17 @@ jQuery(document).ready(function() {
   let currentHeadlineIndex = 0;
   let currentWordIndex = 0;
   const $headline = jQuery('#banner_headline');
+  let isPartialHeadlineActive = false;
   
   function showHeadline() {
     const headline = headlines[currentHeadlineIndex];
     
     if (headline.type === "full") {
+      isPartialHeadlineActive = false;
       // Show full headline
       $headline.html(headline.text);
     } else if (headline.type === "partial") {
+      isPartialHeadlineActive = true;
       // Show headline with changing word - create wrapper for scroll effect
       $headline.html(
         '<span class="static-text">' + headline.staticText + '</span>' +
@@ -82,13 +85,24 @@ jQuery(document).ready(function() {
         $wordSlider.find('.changing-word').first().remove();
       }, 650);
     } else {
-      // Move to next headline
-      $headline.fadeOut(600, function() {
-        currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
-        currentWordIndex = 0;
-        showHeadline();
-        $headline.fadeIn(600);
-      });
+      // Move to next headline - only fade if transitioning between different headline types
+      if (isPartialHeadlineActive) {
+        // Just switching to full headlines, use fade
+        $headline.fadeOut(600, function() {
+          currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
+          currentWordIndex = 0;
+          showHeadline();
+          $headline.fadeIn(600);
+        });
+      } else {
+        // Between full headlines or back to partial
+        $headline.fadeOut(600, function() {
+          currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
+          currentWordIndex = 0;
+          showHeadline();
+          $headline.fadeIn(600);
+        });
+      }
     }
   }
   

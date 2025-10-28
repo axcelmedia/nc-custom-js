@@ -42,7 +42,7 @@
   display: inline-block;
   white-space: nowrap;
   position: absolute;
-  top: 0;
+  top: 12px;
   left: 0;
   opacity: 1;
   transform: translateY(0);

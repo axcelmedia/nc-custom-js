@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
             const headlines = [
                 {
                     type: "full",
-                    text: "Nisġa'a is rooted deeply in the land and sea"
+                    text: "Nisg̱a’a is rooted deeply in the land and sea"
                 },
                 {
                     type: "full",
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
                 },
                 {
                     type: "partial",
-                    staticText: "Nisġa'a is our ",
+                    staticText: "Nisg̱a’a is our ",
                     words: ["community", "history", "heart"]
                 }
             ];
@@ -46,12 +46,10 @@ jQuery(document).ready(function() {
                     // Show full headline
                     $headline.html(headline.text);
                 } else if (headline.type === "partial") {
-                    // Show headline with changing word - wrap in container for scroll effect
+                    // Show headline with changing word
                     $headline.html(
                         '<span class="static-text">' + headline.staticText + '</span>' +
-                        '<span class="word-container">' +
-                        '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
-                        '</span>'
+                        '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>'
                     );
                 }
             }
@@ -61,27 +59,12 @@ jQuery(document).ready(function() {
                 
                 // If we're on the partial headline and haven't cycled through all words yet
                 if (headline.type === "partial" && currentWordIndex < headline.words.length - 1) {
-                    // Scroll up to next word using jQuery animate
-                    const $wordContainer = jQuery('.word-container');
-                    const $currentWord = jQuery('.changing-word');
-                    
-                    // Get the height of the word
-                    const wordHeight = $currentWord.outerHeight();
-                    
-                    // Move to next word
-                    currentWordIndex++;
-                    
-                    // Create new word element positioned below
-                    const $newWord = jQuery('<span class="changing-word" style="position: absolute; left: 0; top: ' + wordHeight + 'px;">' + headline.words[currentWordIndex] + '</span>');
-                    $wordContainer.append($newWord);
-                    
-                    // Animate both words upward
-                    $currentWord.animate({ top: -wordHeight + 'px' }, 600, function() {
-                        $currentWord.remove();
+                    // Just change the word
+                    const $changingWord = jQuery('.changing-word');
+                    $changingWord.fadeOut(600, function() {
+                        currentWordIndex++;
+                        $changingWord.text(headline.words[currentWordIndex]).fadeIn(600);
                     });
-                    
-                    $newWord.animate({ top: '0px' }, 600);
-                    
                 } else {
                     // Move to next headline
                     $headline.fadeOut(600, function() {
@@ -98,6 +81,59 @@ jQuery(document).ready(function() {
             
             // Start rotation every 3 seconds
             setInterval(rotateContent, 3000);
+/************* transition section****************
+ console.log('Document ready');
+            console.log('overlaySection exists:', jQuery('#overlaySection').length);
+            
+            var hasTriggered = false;
+
+            function checkScroll() {
+                var $overlaySection = jQuery('#overlaySection');
+                console.log('Checking scroll - overlaySection found:', jQuery(overlaySection.length));
+                
+                if ($overlaySection.length === 0) {
+                    console.log('overlaySection not found');
+                    return;
+                }
+                
+                var rect = $overlaySection[0].getBoundingClientRect();
+                var windowHeight = jQuery(window).height();
+                
+                console.log('Scroll check - rect.top:', rect.top, 'windowHeight:', windowHeight);
+                
+                // Check if section is in viewport (at least 30% visible)
+                if (rect.top <= windowHeight * 0.7 && rect.bottom >= windowHeight * 0.3) {
+                    if (!hasTriggered) {
+                        console.log('Overlay triggered');
+                        jQuery('.overlay_inner').addClass('show');
+                        hasTriggered = true;
+                    }
+                } else {
+                    // Optional: remove overlay when scrolling away
+                    jQuery('.overlay_inner').removeClass('show');
+                    hasTriggered = false;
+                }
+            }
+
+            // Bind scroll event with throttle
+            jQuery(window).on('scroll', function() {
+                checkScroll();
+            });
+            
+            // Check on page load
+            jQuery(window).on('load', function() {
+                console.log('Window load event');
+                checkScroll();
+            });
+            
+            // Initial check
+            setTimeout(function() {
+                console.log('Initial check after timeout');
+                checkScroll();
+            }, 500);
+
+		*********************sectin js ends here ****************/
+
         });
 
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {

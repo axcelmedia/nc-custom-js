@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
             const headlines = [
                 {
                     type: "full",
-                    text: "Nisg̱a’a is rooted deeply in the land and sea"
+                    text: "Nisġa'a is rooted deeply in the land and sea"
                 },
                 {
                     type: "full",
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
                 },
                 {
                     type: "partial",
-                    staticText: "Nisg̱a’a is our ",
+                    staticText: "Nisġa'a is our ",
                     words: ["community", "history", "heart"]
                 }
             ];
@@ -61,28 +61,27 @@ jQuery(document).ready(function() {
                 
                 // If we're on the partial headline and haven't cycled through all words yet
                 if (headline.type === "partial" && currentWordIndex < headline.words.length - 1) {
-                    // Scroll up to next word
+                    // Scroll up to next word using jQuery animate
                     const $wordContainer = jQuery('.word-container');
                     const $currentWord = jQuery('.changing-word');
+                    
+                    // Get the height of the word
+                    const wordHeight = $currentWord.outerHeight();
                     
                     // Move to next word
                     currentWordIndex++;
                     
                     // Create new word element positioned below
-                    const $newWord = jQuery('<span class="changing-word next-word">' + headline.words[currentWordIndex] + '</span>');
+                    const $newWord = jQuery('<span class="changing-word" style="position: absolute; left: 0; top: ' + wordHeight + 'px;">' + headline.words[currentWordIndex] + '</span>');
                     $wordContainer.append($newWord);
                     
-                    // Trigger animation - slide current word up and new word up
-                    setTimeout(function() {
-                        $currentWord.addClass('slide-up');
-                        $newWord.addClass('slide-up');
-                    }, 10);
-                    
-                    // After animation completes, remove old word
-                    setTimeout(function() {
+                    // Animate both words upward
+                    $currentWord.animate({ top: -wordHeight + 'px' }, 600, function() {
                         $currentWord.remove();
-                        $newWord.removeClass('next-word slide-up');
-                    }, 610);
+                    });
+                    
+                    $newWord.animate({ top: '0px' }, 600);
+                    
                 } else {
                     // Move to next headline
                     $headline.fadeOut(600, function() {

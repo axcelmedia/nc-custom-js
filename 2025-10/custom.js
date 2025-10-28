@@ -30,8 +30,8 @@ jQuery(document).ready(function() {
     },
     {
       type: "partial",
-      staticText: "Nisg̱a'a is our",
-      words: ["community", "history", "heart"]
+      staticText: "Nisg̱a'a is ",
+      words: ["our community", "our history", "our heart"]
     }
   ];
   

@@ -12,23 +12,36 @@
 	        max-width: 950px;
         }
 
+
 .word-container {
     display: inline-block;
     overflow: hidden;
     vertical-align: bottom;
     position: relative;
-    height: 1.2em; 
+    height: 1.2em; /* Adjust based on your font size */
 }
  
 .changing-word {
     display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
     transition: transform 0.6s ease-in-out;
     transform: translateY(0);
 }
  
 
+.changing-word.next-word {
+    transform: translateY(100%);
+}
+ 
+
 .changing-word.slide-up {
     transform: translateY(-100%);
+}
+ 
+.changing-word.next-word.slide-up {
+    transform: translateY(0);
 }
  
 

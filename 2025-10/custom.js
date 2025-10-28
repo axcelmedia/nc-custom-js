@@ -16,6 +16,8 @@ document.addEventListener("scroll", function() {
   });
 });
 
+
+
 jQuery(document).ready(function() {
   // JSON array of headlines
   const headlines = [

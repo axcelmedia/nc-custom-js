@@ -63,16 +63,26 @@ jQuery(document).ready(function() {
                 if (headline.type === "partial" && currentWordIndex < headline.words.length - 1) {
                     // Scroll up to next word
                     const $wordContainer = jQuery('.word-container');
-                    const $changingWord = jQuery('.changing-word');
+                    const $currentWord = jQuery('.changing-word');
                     
-                    // Add slide-up class to trigger animation
-                    $changingWord.addClass('slide-up');
+                    // Move to next word
+                    currentWordIndex++;
                     
-                    // After animation completes, change word and reset
+                    // Create new word element positioned below
+                    const $newWord = jQuery('<span class="changing-word next-word">' + headline.words[currentWordIndex] + '</span>');
+                    $wordContainer.append($newWord);
+                    
+                    // Trigger animation - slide current word up and new word up
                     setTimeout(function() {
-                        currentWordIndex++;
-                        $changingWord.removeClass('slide-up').text(headline.words[currentWordIndex]);
-                    }, 600);
+                        $currentWord.addClass('slide-up');
+                        $newWord.addClass('slide-up');
+                    }, 10);
+                    
+                    // After animation completes, remove old word
+                    setTimeout(function() {
+                        $currentWord.remove();
+                        $newWord.removeClass('next-word slide-up');
+                    }, 610);
                 } else {
                     // Move to next headline
                     $headline.fadeOut(600, function() {

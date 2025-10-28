@@ -64,8 +64,8 @@ jQuery(document).ready(function() {
       tempSpan.remove();
       
       $headline.html(
-        '<span class="static-text">' + headline.staticText + '</span>' +
-        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px;">' +
+        '<span class="static-text">' + headline.staticText + '</span>' 
+        '<span class="word-wrapper">' +
           '<span class="word-slider">' +
             '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
           '</span>' +

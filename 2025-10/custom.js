@@ -51,19 +51,19 @@ jQuery(document).ready(function() {
       isPartialHeadlineActive = true;
       // Show headline with changing word - create wrapper for scroll effect
       // Calculate the width needed for the longest word
-      const tempSpan = jQuery('<span style="visibility:hidden;position:absolute;white-space:nowrap;"></span>');
-      jQuery('body').append(tempSpan);
+      const tempSpan = jQuery('<span style="visibility:hidden;position:absolute;white-space:nowrap;font-size:inherit;font-family:inherit;"></span>');
+      $headline.append(tempSpan);
       let maxWidth = 0;
       headline.words.forEach(function(word) {
         tempSpan.text(word);
-        const width = tempSpan.width();
+        const width = tempSpan.outerWidth();
         if (width > maxWidth) maxWidth = width;
       });
       tempSpan.remove();
       
       $headline.html(
         '<span class="static-text">' + headline.staticText + '</span>' +
-        '<span class="word-wrapper" style="width: ' + maxWidth + 'px;">' +
+        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px;">' +
           '<span class="word-slider">' +
             '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
           '</span>' +

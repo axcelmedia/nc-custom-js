@@ -14,28 +14,31 @@
 
 
 /* Container for the changing word to enable scroll effect */
-.word-container {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: bottom;
-    position: relative;
-    height: 1.2em; /* Adjust based on your font size */
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.2em; /* Adjust based on your font size */
+  position: relative;
+}
+
+.word-slider {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.6s ease-in-out;
+}
+
+.word-slider.scroll-up {
+  transform: translateY(-100%);
 }
 
 .changing-word {
-    display: inline-block;
-    transition: transform 0.6s ease-in-out;
-    transform: translateY(0);
+  display: block;
+  white-space: nowrap;
 }
 
-/* Slide up animation */
-.changing-word.slide-up {
-    transform: translateY(-100%);
-}
-
-/* Ensure static text stays in place */
 .static-text {
-    display: inline-block;
+  display: inline-block;
 }
 .fade-content {
   opacity: 0;

@@ -40,13 +40,13 @@
 
 .fade-content {
   opacity: 0;
-  transform: translateY(30px);
+  
   transition: all 1s ease;
 	transition-delay: 0.5s;
 }
 .fade-content.show {
   opacity: 1;
-  transform: translateY(0);
+  
 }
 .gradient-bg-overlay
 {

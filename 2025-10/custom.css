@@ -13,6 +13,7 @@
         }
 
 
+/* Container for the changing word to enable scroll effect */
 .word-container {
     display: inline-block;
     overflow: hidden;
@@ -20,35 +21,18 @@
     position: relative;
     height: 1.2em; /* Adjust based on your font size */
 }
- 
+
 .changing-word {
     display: inline-block;
     position: absolute;
     left: 0;
     top: 0;
-    transition: transform 0.6s ease-in-out;
-    transform: translateY(0);
 }
- 
 
-.changing-word.next-word {
-    transform: translateY(100%);
-}
- 
-
-.changing-word.slide-up {
-    transform: translateY(-100%);
-}
- 
-.changing-word.next-word.slide-up {
-    transform: translateY(0);
-}
- 
-
+/* Ensure static text stays in place */
 .static-text {
     display: inline-block;
 }
-
 .fade-content {
   opacity: 0;
   

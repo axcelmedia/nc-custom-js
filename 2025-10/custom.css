@@ -15,13 +15,11 @@
 
 /* Container for the changing word to enable scroll effect */
 #banner_headline {
-  /* Make sure the headline container doesn't shift */
   min-height: 1.2em;
 }
 
 .static-text {
   display: inline-block;
-  /* Lock the static text in place */
   position: relative;
   vertical-align: bottom;
 }
@@ -30,20 +28,13 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  height: 1.2em; /* Adjust based on your font size */
+  height: 1.2em;
   position: relative;
-  min-width: 150px; /* Adjust to fit your longest word */
+  min-width: 200px; /* Adjust to fit "our community" */
 }
 
 .word-slider {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.6s ease-in-out;
   position: relative;
-}
-
-.word-slider.scroll-up {
-  transform: translateY(-100%);
 }
 
 .changing-word {
@@ -51,6 +42,27 @@
   white-space: nowrap;
   height: 1.2em;
   line-height: 1.2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease-out;
+}
+
+.changing-word.fade-out-up {
+  opacity: 0;
+  transform: translateY(-15px); /* Slight upward movement */
+}
+
+.changing-word.fade-in-up {
+  opacity: 0;
+  transform: translateY(15px); /* Starts slightly below */
+}
+
+.changing-word.fade-in-active {
+  opacity: 1;
+  transform: translateY(0);
 }
 .fade-content {
   opacity: 0;

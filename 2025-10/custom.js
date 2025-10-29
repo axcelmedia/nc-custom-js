@@ -86,7 +86,7 @@ jQuery(document).ready(function() {
       // Trigger the scroll animation
       setTimeout(function() {
         $wordSlider.addClass('scroll-up');
-      }, 50);
+      }, 500);
       
       // After animation completes, clean up
       setTimeout(function() {

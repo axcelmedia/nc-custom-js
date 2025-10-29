@@ -86,7 +86,7 @@ jQuery(document).ready(function() {
       // Trigger the scroll animation
       setTimeout(function() {
         $wordSlider.addClass('scroll-up');
-      }, 60000);
+      }, 50);
       
       // After animation completes, clean up
       setTimeout(function() {
@@ -94,24 +94,24 @@ jQuery(document).ready(function() {
         // Remove the old word and reset position
         $wordSlider.removeClass('scroll-up');
         $wordSlider.find('.changing-word').first().remove();
-      }, 60000);
+      }, 650);
     } else {
       // Move to next headline - only fade if transitioning between different headline types
       if (isPartialHeadlineActive) {
         // Just switching to full headlines, use fade
-        $headline.fadeOut(60000, function() {
+        $headline.fadeOut(600, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(60000);
+          $headline.fadeIn(600);
         });
       } else {
         // Between full headlines or back to partial
-        $headline.fadeOut(60000, function() {
+        $headline.fadeOut(600, function() {
           currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
           currentWordIndex = 0;
           showHeadline();
-          $headline.fadeIn(60000);
+          $headline.fadeIn(600);
         });
       }
     }
@@ -121,7 +121,7 @@ jQuery(document).ready(function() {
   showHeadline();
   
   // Start rotation every 3 seconds
-  setInterval(rotateContent, 60000);
+  setInterval(rotateContent, 3000);
 });
 
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {

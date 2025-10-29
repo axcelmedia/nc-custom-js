@@ -14,6 +14,7 @@
 
 
 /* Container for the changing word to enable scroll effect */
+
 #banner_headline {
   display: inline-block;
 }
@@ -25,38 +26,38 @@
 
 .word-wrapper {
   display: inline-block;
+  overflow: visible; /* Changed from hidden to visible */
   vertical-align: baseline;
+  height: auto; /* Changed from fixed height */
   position: relative;
 }
 
 .word-slider {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.6s ease-out;
-  transform: translateY(0);
-}
-
-.word-slider.scroll-up {
-  transform: translateY(-100%); /* Move up by exactly one word */
+  display: inline-block;
 }
 
 .changing-word {
-  display: block;
+  display: inline-block;
   white-space: nowrap;
-  flex-shrink: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease-out;
 }
- 
+
 .changing-word.fade-out-up {
   opacity: 0;
   transform: translateY(-10px);
 }
- 
+
 .changing-word.fade-in-up {
   opacity: 0;
   transform: translateY(10px);
 }
- 
+
 .changing-word.fade-in-active {
   opacity: 1;
   transform: translateY(0);

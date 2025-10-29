@@ -17,51 +17,50 @@
 #banner_headline {
   display: inline-block;
 }
-
+ 
 .static-text {
   display: inline;
   white-space: nowrap;
 }
-
+ 
 .word-wrapper {
   display: inline-block;
-  overflow: hidden !important; /* Force hide overflow */
+  overflow: visible; /* Changed from hidden to visible */
   vertical-align: baseline;
+  height: auto; /* Changed from fixed height */
   position: relative;
 }
-
+ 
 .word-slider {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.6s ease-out;
-  transform: translateY(0);
+  display: inline-block;
 }
-
-.word-slider.scroll-up {
-  transform: translateY(-100%); /* Move up by exactly one word */
-}
-
+ 
 .changing-word {
-  display: block;
+  display: inline-block;
   white-space: nowrap;
-  flex-shrink: 0;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease-out;
 }
-
+ 
 .changing-word.fade-out-up {
   opacity: 0;
   transform: translateY(-10px);
 }
-
+ 
 .changing-word.fade-in-up {
   opacity: 0;
   transform: translateY(10px);
 }
-
+ 
 .changing-word.fade-in-active {
   opacity: 1;
   transform: translateY(0);
 }
+ 
 .fade-content {
   opacity: 0;
   

@@ -1,7 +1,7 @@
 #banner_headline {
             font-size: 66px;
             color: #fff;
-            line-height: 1.3;
+            line-height: 1.2;
             font-weight: 400;
             
             display: flex;
@@ -9,21 +9,24 @@
             justify-content: center;
 	        gap: 8px;
             position: relative;
-	        max-width: 950px;
+	        max-width:100%;
+			width:950px;
+			text-align:center;
         }
+ 
 
 
 /* Container for the changing word to enable scroll effect */
-
+ 
 #banner_headline {
   display: inline-block;
 }
-
+ 
 .static-text {
   display: inline;
   white-space: nowrap;
 }
-
+ 
 .word-wrapper {
   display: inline-block;
   overflow: visible; /* Changed from hidden to visible */
@@ -31,33 +34,35 @@
   height: auto; /* Changed from fixed height */
   position: relative;
 }
-
+ 
 .word-slider {
   position: relative;
+  width: 300px;
   display: inline-block;
+ 
 }
-
+ 
 .changing-word {
-  display: inline-block;
+  display: block;
   white-space: nowrap;
   position: absolute;
-  top: 0;
+ top: -63px;
   left: 0;
   opacity: 1;
   transform: translateY(0);
   transition: all 0.6s ease-out;
 }
-
+ 
 .changing-word.fade-out-up {
   opacity: 0;
   transform: translateY(-10px);
 }
-
+ 
 .changing-word.fade-in-up {
   opacity: 0;
   transform: translateY(10px);
 }
-
+ 
 .changing-word.fade-in-active {
   opacity: 1;
   transform: translateY(0);

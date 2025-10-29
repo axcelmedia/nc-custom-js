@@ -20,14 +20,14 @@ document.addEventListener("scroll", function() {
 jQuery(document).ready(function() {
   // JSON array of headlines
   const headlines = [
-   /*  {
+    {
       type: "full",
       text: "Nisg̱a'a is rooted deeply in the land and sea"
     },
     {
       type: "full",
       text: "Our language shapes and is shaped by our environment"
-    }, */
+    },
     {
       type: "partial",
       staticText: "Nisg̱a'a is&nbsp;",
@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
       
       $headline.html(
         '<span class="static-text">' + headline.staticText + '</span>' +
-        '<span class="word-wrapper">' +
+        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px;">' +
           '<span class="word-slider">' +
             '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
           '</span>' +
@@ -80,21 +80,27 @@ jQuery(document).ready(function() {
       const nextWordIndex = currentWordIndex + 1;
       const $wordSlider = jQuery('.word-slider');
       
-      // Add the next word below the current one
-      $wordSlider.append('<span class="changing-word">' + headline.words[nextWordIndex] + '</span>');
+      // Fade out current word slightly and move up
+      const $currentWord = $wordSlider.find('.changing-word');
+      $currentWord.addClass('fade-out-up');
       
-      // Trigger the scroll animation
+      // After fade starts, add next word below
       setTimeout(function() {
-        $wordSlider.addClass('scroll-up');
-      }, 50);
+        $wordSlider.append('<span class="changing-word fade-in-up">' + headline.words[nextWordIndex] + '</span>');
+        
+        // Trigger the fade in
+        setTimeout(function() {
+          $wordSlider.find('.changing-word').last().removeClass('fade-in-up').addClass('fade-in-active');
+        }, 50);
+      }, 300);
       
       // After animation completes, clean up
       setTimeout(function() {
         currentWordIndex = nextWordIndex;
-        // Remove the old word and reset position
-        $wordSlider.removeClass('scroll-up');
-        $wordSlider.find('.changing-word').first().remove();
-      }, 650);
+        // Remove the old word
+        $currentWord.remove();
+        $wordSlider.find('.changing-word').removeClass('fade-in-active');
+      }, 900);
     } else {
       // Move to next headline - only fade if transitioning between different headline types
       if (isPartialHeadlineActive) {

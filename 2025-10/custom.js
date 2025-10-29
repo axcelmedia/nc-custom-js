@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
       
       $headline.html(
         '<span class="static-text">' + headline.staticText + '</span>' +
-        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px;">' +
+        '<span class="word-wrapper" style="width: ' + (maxWidth + 5) + 'px; height: 1.2em; line-height: 1.2em;">' +
           '<span class="word-slider">' +
             '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
           '</span>' +

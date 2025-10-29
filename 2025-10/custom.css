@@ -25,7 +25,6 @@
 
 .word-wrapper {
   display: inline-block;
-  overflow: hidden !important; /* Force hide overflow */
   vertical-align: baseline;
   position: relative;
 }

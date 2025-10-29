@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
         setTimeout(function() {
           $wordSlider.find('.changing-word').last().removeClass('fade-in-up').addClass('fade-in-active');
         }, 50);
-      }, 300);
+      }, 600);
       
       // After animation completes, clean up
       setTimeout(function() {
@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
         // Remove the old word
         $currentWord.remove();
         $wordSlider.find('.changing-word').removeClass('fade-in-active');
-      }, 900);
+      }, 1000);
     } else {
       // Move to next headline - only fade if transitioning between different headline types
       if (isPartialHeadlineActive) {

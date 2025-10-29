@@ -234,4 +234,7 @@ background-size: cover !important;
 	.word-slider {
   text-align: center;
 }
+	.static-text {
+  display: block;
+}
 }

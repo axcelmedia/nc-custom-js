@@ -228,7 +228,7 @@ background-size: cover !important;
 	max-width:100%;
 	}
 	.changing-word {
-  top: -19px;
+  top: -19px !important;
 		width: 100%;
 	}
 	.word-slider {

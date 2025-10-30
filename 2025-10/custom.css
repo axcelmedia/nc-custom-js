@@ -67,7 +67,7 @@
   transition-delay: 0.5s;
 }
 .gradient-bg-overlay.nis-lang-banner::before, .gradient-bg-overlay.nis-for-elders-banner::before {
-  opacity: 1 !important;
+  opacity: 0 !important;
 }
 .gradient-bg-overlay.nis-lang-banner.overlaybg:before, .gradient-bg-overlay.nis-for-elders-banneroverlaybg:before
 {

@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
   showHeadline();
   
   // Start rotation every 3 seconds
-  setInterval(rotateContent, 10000);
+  setInterval(rotateContent, 3000);
 });
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');

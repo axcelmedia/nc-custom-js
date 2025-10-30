@@ -17,14 +17,14 @@ document.addEventListener("scroll", function() {
 jQuery(document).ready(function() {
   // JSON array of headlines
   const headlines = [
-      {
+      /*{
       type: "full",
       text: "Nisg̱a'a is rooted deeply in the land and sea"
     },
     {
       type: "full",
       text: "Our language shapes and is shaped by our environment"
-    },
+    },*/
     {
       type: "partial",
       staticText: "Nisg̱a'a is&nbsp;",
@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
   showHeadline();
   
   // Start rotation every 3 seconds
-  setInterval(rotateContent, 3000);
+  setInterval(rotateContent, 10000);
 });
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');

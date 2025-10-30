@@ -29,7 +29,7 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: baseline;
-  height: 80px;
+  height: 90px;
   position: relative;
 }
  
@@ -44,8 +44,8 @@
   display: block;
   white-space: nowrap;
   position: relative;
-  height: 80px;
-  line-height: 80px;
+  height: 90px;
+  line-height: 90px;
 }
 
  

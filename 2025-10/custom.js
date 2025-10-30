@@ -1,12 +1,10 @@
 document.addEventListener("scroll", function() {
   const contents = document.querySelectorAll(".fade-content");
   const windowHeight = window.innerHeight;
-
   contents.forEach(function(content) {
     const rect = content.getBoundingClientRect();
     if (rect.top < windowHeight - 100) {
       content.classList.add("show");
-
       // Target the section overlay
       const overlay = content.closest('.gradient-bg-overlay'); 
       if (overlay) {
@@ -16,11 +14,10 @@ document.addEventListener("scroll", function() {
   });
 });
 
-
 jQuery(document).ready(function() {
   // JSON array of headlines
   const headlines = [
-    {
+      {
       type: "full",
       text: "Nisg̱a'a is rooted deeply in the land and sea"
     },
@@ -61,11 +58,17 @@ jQuery(document).ready(function() {
       });
       tempSpan.remove();
       
+      // Build all words in the slider
+      let wordsHtml = '';
+      headline.words.forEach(function(word) {
+        wordsHtml += '<span class="changing-word">' + word + '</span>';
+      });
+      
       $headline.html(
         '<span class="static-text">' + headline.staticText + '</span>' +
         '<span class="word-wrapper">' +
           '<span class="word-slider">' +
-            '<span class="changing-word">' + headline.words[currentWordIndex] + '</span>' +
+            wordsHtml +
           '</span>' +
         '</span>'
       );
@@ -80,46 +83,25 @@ jQuery(document).ready(function() {
       const nextWordIndex = currentWordIndex + 1;
       const $wordSlider = jQuery('.word-slider');
       
-      // Fade out current word slightly and move up
-      const $currentWord = $wordSlider.find('.changing-word');
-      $currentWord.addClass('fade-out-up');
+      // Slide up by moving the entire slider
+      const offset = -(nextWordIndex * 80); // 80px is the height of each word
+      $wordSlider.css('transform', 'translateY(' + offset + 'px)');
       
-      // After fade starts, add next word below
-      setTimeout(function() {
-        $wordSlider.append('<span class="changing-word fade-in-up">' + headline.words[nextWordIndex] + '</span>');
-        
-        // Trigger the fade in
-        setTimeout(function() {
-          $wordSlider.find('.changing-word').last().removeClass('fade-in-up').addClass('fade-in-active');
-        }, 50);
-      }, 600);
-      
-      // After animation completes, clean up
-      setTimeout(function() {
-        currentWordIndex = nextWordIndex;
-        // Remove the old word
-        $currentWord.remove();
-        $wordSlider.find('.changing-word').removeClass('fade-in-active');
-      }, 1000);
+      currentWordIndex = nextWordIndex;
     } else {
-      // Move to next headline - only fade if transitioning between different headline types
-      if (isPartialHeadlineActive) {
-        // Just switching to full headlines, use fade
-        $headline.fadeOut(600, function() {
-          currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
-          currentWordIndex = 0;
-          showHeadline();
-          $headline.fadeIn(600);
-        });
-      } else {
-        // Between full headlines or back to partial
-        $headline.fadeOut(600, function() {
-          currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
-          currentWordIndex = 0;
-          showHeadline();
-          $headline.fadeIn(600);
-        });
-      }
+      // Move to next headline
+      $headline.fadeOut(600, function() {
+        currentHeadlineIndex = (currentHeadlineIndex + 1) % headlines.length;
+        currentWordIndex = 0;
+        showHeadline();
+        
+        // Reset slider position if going back to partial
+        if (headlines[currentHeadlineIndex].type === "partial") {
+          jQuery('.word-slider').css('transform', 'translateY(0)');
+        }
+        
+        $headline.fadeIn(600);
+      });
     }
   }
   
@@ -129,11 +111,9 @@ jQuery(document).ready(function() {
   // Start rotation every 3 seconds
   setInterval(rotateContent, 3000);
 });
-
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');
   if (!trapezoid) return;
-
   box.addEventListener('mouseenter', () => {
     trapezoid.classList.add('hover');
   });

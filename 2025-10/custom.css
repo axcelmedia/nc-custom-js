@@ -71,7 +71,7 @@
 
 .gradient-bg-overlay.nis-lang-banner.overlaybg:before, .gradient-bg-overlay.nis-for-elders-banner.overlaybg:before
 {
-	opacity: 0.9 !important;
+	opacity: 0.96 !important;
 	 transition: opacity 1s ease;
   transition-delay: 0.5s;
 }

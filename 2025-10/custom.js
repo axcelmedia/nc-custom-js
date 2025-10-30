@@ -84,7 +84,7 @@ jQuery(document).ready(function() {
       const $wordSlider = jQuery('.word-slider');
       
       // Slide up by moving the entire slider
-      const offset = -(nextWordIndex * 80); // 80px is the height of each word
+      const offset = -(nextWordIndex * 90); // 80px is the height of each word
       $wordSlider.css('transform', 'translateY(' + offset + 'px)');
       
       currentWordIndex = nextWordIndex;

@@ -70,7 +70,7 @@
   opacity: 0 !important;
 }
 
-.gradient-bg-overlay.nis-lang-banner.overlaybg:before, .gradient-bg-overlay.nis-for-elders-banneroverlaybg:before
+.gradient-bg-overlay.nis-lang-banner.overlaybg:before, .gradient-bg-overlay.nis-for-elders-banner.overlaybg:before
 {
 	opacity: 0.87 !important;
 	 transition: opacity 1s ease;

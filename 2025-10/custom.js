@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
   const headlines = [
       {
       type: "full",
-      text: "Nisg̱a'a is rooted deeply in the land and sea"
+      text: "Nisg̱a’a is rooted deeply in the land and sea"
     },
     {
       type: "full",
@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
     },
     {
       type: "partial",
-      staticText: "Nisg̱a'a is&nbsp;",
+      staticText: "Nisg̱a’a is&nbsp;",
       words: ["our community", "our history", "our heart"]
     }
   ];

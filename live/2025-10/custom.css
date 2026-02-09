@@ -1,0 +1,220 @@
+#banner_headline {
+            font-size: 66px;
+            color: #fff;
+            line-height: 1.2;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+	        gap: 1px;
+            position: relative;
+	        max-width:100%;
+			width:950px;
+			text-align:center;
+        }
+ 
+/* Container for the changing word to enable scroll effect */
+ 
+#banner_headline {
+ 
+}
+ 
+.static-text {
+  display: inline;
+  white-space: nowrap;
+}
+ 
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: baseline;
+  height: 90px;
+  position: relative;
+}
+ 
+.word-slider {
+  position: relative;
+  text-align:left;
+  display: inline-block;
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+ 
+.changing-word {
+  display: block;
+  white-space: nowrap;
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+}
+
+ 
+.fade-content {
+  opacity: 0;
+}
+.fade-content.show {
+  opacity: 1;
+  
+}
+.gradient-bg-overlay
+{
+	overflow: hidden;
+}
+.gradient-bg-overlay:before
+{
+	opacity: 0;
+	 transition: opacity 1s ease;
+  transition-delay: 0.5s;
+}
+.gradient-bg-overlay.nis-lang-banner::before, .gradient-bg-overlay.nis-for-elders-banner::before {
+  opacity: 0 !important;
+}
+
+.gradient-bg-overlay.nis-lang-banner.overlaybg:before, .gradient-bg-overlay.nis-for-elders-banner.overlaybg:before
+{
+	opacity: 0.96 !important;
+	 transition: opacity 1s ease;
+  transition-delay: 0.5s;
+}
+:root {
+      /* ===== EASY CONFIG ===== */
+      
+      --transition-speed: 0.7s;
+    }	
+.nisgaa-feature-post {
+	position: relative;
+	overflow: hidden;
+	background-size: 100% !important;
+	transition: background-size 0.99s ease;
+	/* animate smoothly */
+}
+.nisgaa-feature-post.elementor-element-e694368
+{
+background: url("https://nisgaaculture.dev.ideatest.ca/wp-content/uploads/2025/10/hat-Image.png") center center;
+}
+.nisgaa-feature-post.elementor-element-94e085f
+{
+background: url("/wp-content/uploads/2025/10/bridge-Image.png") center center;
+}
+.nisgaa-feature-post.elementor-element-49fc174
+{
+background: url("/wp-content/uploads/2025/10/green-Image.png") center center;
+}
+
+.nisgaa-feature-post:hover {
+	background-size: 120% !important;
+	/* zoom in effect */
+}
+
+.bg-hover {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	cursor: pointer;
+	transition: height 0.7s ease 0.0s;
+	background-image: none !important;
+	min-height:auto !important;
+}
+
+.bg-hover::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/* NOTE: no width/height attributes inside SVG, only viewBox */
+	background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 424 204' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 40C0 17.9086 17.9086 0 40 0H359.984C382.803 0 402.009 17.0796 404.676 39.7421L424 204H0V40Z' fill='rgba(0,0,0,0.5)'/></svg>");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 100%;
+	transition: height var(--transition-speed) ease, filter var(--transition-speed) ease;
+	cursor: pointer;
+	z-index: 0;
+}
+
+.bg-hover:hover::before, .bg-hover.hover::before {
+	height: 100%;
+	background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 424 204' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 40C0 17.9086 17.9086 0 40 0H359.984C382.803 0 402.009 17.0796 404.676 39.7421L424 204H0V40Z' fill='rgba(121,128,116)'/></svg>");
+
+}
+
+.clip-path-bl {
+	position: relative;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	padding: 40px 30px 30px 30px;
+	color: white;
+	min-height:auto !important;
+	background-image: none !important;
+}
+
+.clip-path-bl .elementor-button
+{
+text-decoration: none !important;
+}
+.clip-path-bl .elementor-button:hover
+{
+text-decoration:underline !important;
+}
+.clip-path-bl .elementor-button .elementor-button-icon svg {
+  width: auto;
+}
+.bg-hover:hover .clip-path-bl .elementor-button
+{
+text-decoration:underline !important;
+}
+.nisgaa-feature-post:hover .bg-hover .clip-path-bl .elementor-button
+{
+text-decoration:underline !important;
+}
+.nisgaa-feature-post .bg-hover .clip-path-bl .elementor-button .elementor-button-icon {
+  transition: margin-left 0.3s ease; 
+}
+.nisgaa-feature-post:hover .bg-hover .clip-path-bl .elementor-button .elementor-button-icon
+{
+	margin-left: 7px;
+}
+.featured-post-content {
+	margin-bottom: 15px;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: max-height var(--transition-speed) ease, margin-bottom var(--transition-speed) ease, opacity var(--transition-speed) ease;
+}
+
+.bg-hover:hover .featured-post-content, .bg-hover.hover .featured-post-content {
+	opacity: 1;
+	max-height: 100px;
+}
+
+@media screen and (max-width: 1024px) {
+
+.nisgaa-feature-post {
+background-size: cover !important;
+
+}
+.nisgaa-feature-post:hover {
+	background-size: cover !important;
+}
+	.featured-post-content {
+	opacity: 1;
+   max-height: inherit;
+}
+	.bg-hover::before {
+	background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 424 204' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 40C0 17.9086 17.9086 0 40 0H359.984C382.803 0 402.009 17.0796 404.676 39.7421L424 204H0V40Z' fill='rgba(121,128,116)'/></svg>");
+}
+}
+@media screen and (max-width: 767px) {
+#banner_headline {
+            font-size:30px;	
+	 line-height: 1.3;
+	max-width:100%;
+	}
+	#banner_headline {
+  flex-wrap: wrap;
+}
+.word-slider {
+  text-align: left;
+  }
+}

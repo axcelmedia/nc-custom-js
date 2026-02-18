@@ -18,6 +18,7 @@ document.addEventListener("scroll", function() {
 jQuery(document).ready(function ($) {
 
   const headlines = [
+    { word: "Land", start: 0, end: 4 },
     { word: "Water", start: 4, end: 5 },
     { word: "Environment", start: 7, end: 8 },
     { word: "Identity", start: 11, end: 12 },
@@ -28,32 +29,43 @@ jQuery(document).ready(function ($) {
 
   const $headline = $('#banner_headline .elementor-widget-container');
   let lastIndex = -1;
+  let lastTime = 0;
 
   function getVideo() {
     return document.querySelector(".elementor-background-video-hosted");
   }
 
+  function updateHeadline(index) {
+    $headline.stop(true, true).fadeOut(200, function () {
+      $headline.html('<h1>Nisg̱a’a is ' + headlines[index].word + '</h1>');
+      $headline.fadeIn(200);
+    });
+  }
+
   function initVideoSync(video) {
+
+    // Show first text immediately
+    updateHeadline(0);
+    lastIndex = 0;
 
     video.addEventListener("timeupdate", function () {
       const currentTime = video.currentTime;
 
+      // Detect loop restart
+      if (currentTime < lastTime) {
+        lastIndex = -1;
+        updateHeadline(0);
+      }
+
+      lastTime = currentTime;
+
       headlines.forEach(function (item, index) {
-
-        if (currentTime >= item.start && currentTime <= item.end) {
-
+        if (currentTime >= item.start && currentTime < item.end) {
           if (lastIndex !== index) {
             lastIndex = index;
-
-            $headline.fadeOut(200, function () {
-              $headline.html(
-                '<h1>Nisg̱a’a is ' + item.word + '</h1>'
-              );
-              $headline.fadeIn(200);
-            });
+            updateHeadline(index);
           }
         }
-
       });
     });
   }

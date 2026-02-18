@@ -16,20 +16,19 @@ document.addEventListener("scroll", function() {
 
 
 jQuery(document).ready(function ($) {
-	console.log("I am here updating")
 
   const headlines = [
-    { word: "Land", start: 0, end: 4 },
-    { word: "Water", start: 4, end: 5 },
-    { word: "Environment", start: 7, end: 8 },
-    { word: "Identity", start: 11, end: 12 },
-    { word: "Language", start: 16, end: 17 },
-    { word: "History", start: 20, end: 21 },
-    { word: "People", start: 24, end: 25 }
+    { word: "Land", time: 0 },
+    { word: "Water", time: 4 },
+    { word: "Environment", time: 7 },
+    { word: "Identity", time: 11 },
+    { word: "Language", time: 16 },
+    { word: "History", time: 20 },
+    { word: "People", time: 24 }
   ];
 
   const $headline = $('#banner_headline .elementor-widget-container');
-  let lastIndex = -1;
+  let currentIndex = -1;
   let lastTime = 0;
 
   function getVideo() {
@@ -37,54 +36,56 @@ jQuery(document).ready(function ($) {
   }
 
   function updateHeadline(index) {
-    $headline.stop(true, true).fadeOut(200, function () {
+    $headline.stop(true, true).fadeOut(150, function () {
       $headline.html('<h1>Nisg̱a’a is ' + headlines[index].word + '</h1>');
-      $headline.fadeIn(200);
+      $headline.fadeIn(150);
     });
   }
 
   function initVideoSync(video) {
 
-    // Show first text immediately
+    // Initial text
     updateHeadline(0);
-    lastIndex = 0;
+    currentIndex = 0;
 
     video.addEventListener("timeupdate", function () {
+
       const currentTime = video.currentTime;
 
       // Detect loop restart
       if (currentTime < lastTime) {
-        lastIndex = -1;
+        currentIndex = 0;
         updateHeadline(0);
       }
 
       lastTime = currentTime;
 
-      headlines.forEach(function (item, index) {
-        if (currentTime >= item.start && currentTime < item.end) {
-          if (lastIndex !== index) {
-            lastIndex = index;
-            updateHeadline(index);
+      for (let i = headlines.length - 1; i >= 0; i--) {
+        if (currentTime >= headlines[i].time) {
+          if (currentIndex !== i) {
+            currentIndex = i;
+            updateHeadline(i);
           }
+          break;
         }
-      });
+      }
+
     });
   }
 
   function waitForVideo() {
     const video = getVideo();
-
     if (!video) {
-      setTimeout(waitForVideo, 400);
+      setTimeout(waitForVideo, 300);
       return;
     }
-
     initVideoSync(video);
   }
 
   waitForVideo();
 
 });
+
 
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');

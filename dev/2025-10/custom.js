@@ -16,7 +16,7 @@ document.addEventListener("scroll", function() {
 
 
 jQuery(document).ready(function ($) {
-	conosle.log("I am here");
+	console.log("I am here");
 
   const headlines = [
     { word: "Land", start: 0, end: 4 },

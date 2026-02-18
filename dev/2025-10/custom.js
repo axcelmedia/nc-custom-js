@@ -17,6 +17,7 @@ document.addEventListener("scroll", function() {
 
 jQuery(document).ready(function() {
   // JSON array of headlines
+  console.log("hii I am here update now ");
   const headlines = [
       {
       type: "full",

@@ -1,5 +1,4 @@
 jQuery(document).ready(function ($) {
-
   const headlines = [
     { word: "Land", time: 0.00 },
     { word: "Water", time: 4.00 },
@@ -11,44 +10,63 @@ jQuery(document).ready(function ($) {
   ];
 
   const $headline = $('#banner_headline .elementor-widget-container');
-
   if ($headline.length === 0) return;
 
   let currentIndex = -1;
   let video;
   let lastTime = 0;
 
+  // Inject CSS for blur fade animation
+  $('<style>')
+    .prop('type', 'text/css')
+    .html(`
+      .dynamic-word {
+        display: inline-block;
+        opacity: 0;
+        filter: blur(8px);
+        transition: opacity 1.2s ease-in-out, filter 1.2s ease-in-out;
+      }
+      .dynamic-word.visible {
+        opacity: 1;
+        filter: blur(0px);
+      }
+      .dynamic-word.hidden {
+        opacity: 0;
+        filter: blur(8px);
+      }
+    `)
+    .appendTo('head');
+
   function getVideo() {
     return document.querySelector(".elementor-background-video-hosted");
   }
 
   function updateHeadline(index) {
-    const staticText = "Nisg̱a’a is ";
-
-    // Dynamic word span
+    const staticText = "Nisg̱a'a is ";
     let $dynamicSpan = $headline.find('.dynamic-word');
 
     if ($dynamicSpan.length === 0) {
       // First time: create span
-      $headline.html(staticText + '<span class="dynamic-word" style="opacity:0; transition: opacity 1.2s ease-in-out;">' + headlines[index].word + '</span>');
+      $headline.html(staticText + '<span class="dynamic-word">' + headlines[index].word + '</span>');
       $dynamicSpan = $headline.find('.dynamic-word');
-      setTimeout(() => { $dynamicSpan.css('opacity', 1); }, 50);
+      setTimeout(() => { $dynamicSpan.addClass('visible'); }, 50);
     } else {
-      // Fade out current word slowly
-      $dynamicSpan.css('opacity', 0);
+      // Fade out + blur out
+      $dynamicSpan.removeClass('visible').addClass('hidden');
+
       setTimeout(() => {
-        // Replace word after fade out
+        // Change word
         $dynamicSpan.text(headlines[index].word);
-        // Fade in slowly
-        $dynamicSpan.css('opacity', 1);
-      }, 800); // 800ms fade out, matches the CSS transition
+        // Small delay then fade in + blur in
+        setTimeout(() => {
+          $dynamicSpan.removeClass('hidden').addClass('visible');
+        }, 50);
+      }, 800); // wait for blur out to finish
     }
   }
 
   function syncVideo() {
     const currentTime = video.currentTime;
-
-    // Detect loop restart
     if (currentTime < lastTime) currentIndex = -1;
     lastTime = currentTime;
 
@@ -61,24 +79,19 @@ jQuery(document).ready(function ($) {
         break;
       }
     }
-
     requestAnimationFrame(syncVideo);
   }
 
   function waitForVideo() {
     video = getVideo();
-
     if (!video) {
       setTimeout(waitForVideo, 300);
       return;
     }
-
-    updateHeadline(0); // initial display: Nisg̱a’a is Land
+    updateHeadline(0);
     currentIndex = 0;
-
     requestAnimationFrame(syncVideo);
   }
 
   waitForVideo();
-
 });

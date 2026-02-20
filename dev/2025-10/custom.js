@@ -18,10 +18,10 @@ document.addEventListener("scroll", function() {
 jQuery(document).ready(function ($) {
 
   const headlines = [
-    { word: "Land", time: 0.00 },
-    { word: "Water", time: 4.00 },
+    { word: "Land", time: 0.01 },
+    { word: "Water", time: 3.00 },
     { word: "Environment", time: 7.00 },
-    { word: "Identity", time: 11.00 },
+    { word: "Identity", time: 10.00 },
     { word: "Language", time: 16.00 },
     { word: "History", time: 20.00 },
     { word: "People", time: 24.00 }

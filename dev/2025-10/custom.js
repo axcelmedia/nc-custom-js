@@ -19,12 +19,12 @@ jQuery(document).ready(function ($) {
 
   const headlines = [
     { word: "Land", time: 0 },
-    { word: "Water", time: 3 },
-    { word: "Environment", time: 6 },
-    { word: "Identity", time: 10 },
-    { word: "Language", time: 15 },
-    { word: "History", time: 19 },
-    { word: "People", time: 22}
+    { word: "Water", time: 4 },
+    { word: "Environment", time: 7 },
+    { word: "Identity", time: 11 },
+    { word: "Language", time: 16 },
+    { word: "History", time: 20 },
+    { word: "People", time: 24 }
   ];
 
   const $headline = $('#banner_headline .elementor-widget-container');

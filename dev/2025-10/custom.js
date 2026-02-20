@@ -15,74 +15,65 @@ document.addEventListener("scroll", function() {
 });
 
 
-jQuery(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function() {
 
-  const headlines = [
-    { word: "Land", time: 0.01 },
-    { word: "Water", time: 3.00 },
-    { word: "Environment", time: 7.00 },
-    { word: "Identity", time: 10.00 },
-    { word: "Language", time: 16.00 },
-    { word: "History", time: 20.00 },
-    { word: "People", time: 24.00 }
+  // 1️⃣ Get the video
+  const video = document.querySelector("video");
+  if (!video) return;
+
+  // 2️⃣ Get your existing heading element
+  // Replace '#banner_headline' with your heading's container ID from Elementor
+  const headline = document.querySelector("#banner_headline .elementor-widget-container");
+  if (!headline) return;
+
+  // 3️⃣ Separate static part and dynamic part
+  let staticText = "Nisg̱a’a is ";  // always static
+  let dynamicWord = "Land";         // initial word
+
+  // Set initial full text
+  headline.textContent = staticText + dynamicWord;
+
+  // Apply fade styling to dynamic word
+  // We'll wrap dynamic word in a span for fading
+  headline.innerHTML = staticText + '<span id="dynamic-word">' + dynamicWord + '</span>';
+  const dynamicText = document.querySelector("#dynamic-word");
+  dynamicText.style.transition = "opacity 0.8s ease-in-out";
+  dynamicText.style.opacity = "1";
+
+  // 4️⃣ Define the timeline for changes (in seconds)
+  const timeline = [
+    { time: 4, text: "water" },
+    { time: 7, text: "environment" },
+    { time: 11, text: "identity" },
+    { time: 16, text: "language" },
+    { time: 20, text: "history" },
+    { time: 24, text: "people" }
   ];
 
-  const $headline = $('#banner_headline .elementor-widget-container');
-  let currentIndex = -1;
-  let video;
-  let lastTime = 0;
+  let currentIndex = 0;
 
-  function getVideo() {
-    return document.querySelector(".elementor-background-video-hosted");
-  }
+  // 5️⃣ Listen to video timeupdate
+  video.addEventListener("timeupdate", function() {
+    const currentTime = Math.floor(video.currentTime);
 
-  function updateHeadline(index) {
-    $headline.stop(true, true).fadeOut(150, function () {
-      $headline.html('<h1>Nisg̱a’a is ' + headlines[index].word + '</h1>');
-      $headline.fadeIn(150);
-    });
-  }
+    if (currentIndex < timeline.length && currentTime >= timeline[currentIndex].time) {
 
-  function syncVideo() {
-    const currentTime = video.currentTime;
+      // Fade out current word
+      dynamicText.style.opacity = "0";
 
-    // Detect loop restart
-    if (currentTime < lastTime) {
-      currentIndex = -1;
+      // After fade out, change word and fade in
+      setTimeout(() => {
+        dynamicText.textContent = timeline[currentIndex].text;
+        dynamicText.style.opacity = "1";
+      }, 400);
+
+      currentIndex++;
     }
-
-    lastTime = currentTime;
-
-    for (let i = headlines.length - 1; i >= 0; i--) {
-      if (currentTime >= headlines[i].time) {
-        if (currentIndex !== i) {
-          currentIndex = i;
-          updateHeadline(i);
-        }
-        break;
-      }
-    }
-
-    requestAnimationFrame(syncVideo);
-  }
-
-  function waitForVideo() {
-    video = getVideo();
-
-    if (!video) {
-      setTimeout(waitForVideo, 300);
-      return;
-    }
-
-    updateHeadline(0); // initial text
-    currentIndex = 0;
-
-    requestAnimationFrame(syncVideo);
-  }
-
-  waitForVideo();
+  });
 
 });
+
+
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');
   if (!trapezoid) return;

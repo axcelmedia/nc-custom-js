@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
   const headlines = [
-    { word: "Land", time: 0.01 },
+    { word: "Land", time: 0.00 },
     { word: "Water", time: 4.00 },
     { word: "Environment", time: 7.00 },
     { word: "Identity", time: 11.00 },

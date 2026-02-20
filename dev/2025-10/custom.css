@@ -5,7 +5,7 @@
             font-weight: 400;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
 	        gap: 1px;
             position: relative;
 	        max-width:100%;

@@ -1,20 +1,3 @@
-document.addEventListener("scroll", function() {
-  const contents = document.querySelectorAll(".fade-content");
-  const windowHeight = window.innerHeight;
-  contents.forEach(function(content) {
-    const rect = content.getBoundingClientRect();
-    if (rect.top < windowHeight - 100) {
-      content.classList.add("show");
-      // Target the section overlay
-      const overlay = content.closest('.gradient-bg-overlay'); 
-      if (overlay) {
-        overlay.classList.add("overlaybg");
-      }
-    }
-  });
-});
-
-
 jQuery(document).ready(function ($) {
 
   const headlines = [
@@ -40,24 +23,25 @@ jQuery(document).ready(function ($) {
   }
 
   function updateHeadline(index) {
-    // Only update dynamic word
-    let staticText = "Nisg̱a’a is ";
+    const staticText = "Nisg̱a’a is ";
 
-    // If dynamic span already exists, fade out and replace text
+    // Dynamic word span
     let $dynamicSpan = $headline.find('.dynamic-word');
 
     if ($dynamicSpan.length === 0) {
       // First time: create span
-      $headline.html(staticText + '<span class="dynamic-word" style="opacity:0; transition: opacity 0.6s ease-in-out;">' + headlines[index].word + '</span>');
+      $headline.html(staticText + '<span class="dynamic-word" style="opacity:0; transition: opacity 1.2s ease-in-out;">' + headlines[index].word + '</span>');
       $dynamicSpan = $headline.find('.dynamic-word');
       setTimeout(() => { $dynamicSpan.css('opacity', 1); }, 50);
     } else {
-      // Fade out current word
+      // Fade out current word slowly
       $dynamicSpan.css('opacity', 0);
       setTimeout(() => {
+        // Replace word after fade out
         $dynamicSpan.text(headlines[index].word);
+        // Fade in slowly
         $dynamicSpan.css('opacity', 1);
-      }, 400);
+      }, 800); // 800ms fade out, matches the CSS transition
     }
   }
 
@@ -97,14 +81,4 @@ jQuery(document).ready(function ($) {
 
   waitForVideo();
 
-});
-document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
-  const trapezoid = box.querySelector('.bg-hover');
-  if (!trapezoid) return;
-  box.addEventListener('mouseenter', () => {
-    trapezoid.classList.add('hover');
-  });
-  box.addEventListener('mouseleave', () => {
-    trapezoid.classList.remove('hover');
-  });
 });

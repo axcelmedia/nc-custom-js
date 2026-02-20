@@ -28,6 +28,9 @@ jQuery(document).ready(function ($) {
   ];
 
   const $headline = $('#banner_headline .elementor-widget-container');
+
+  if ($headline.length === 0) return;
+
   let currentIndex = -1;
   let video;
   let lastTime = 0;
@@ -37,32 +40,34 @@ jQuery(document).ready(function ($) {
   }
 
   function updateHeadline(index) {
-    // Wrap the dynamic word in a span for fade animation
-    const dynamicWord = $('<span>').text(headlines[index].word).css({
-      'opacity': 0,
-      'transition': 'opacity 0.6s ease-in-out'
-    });
+    // Only update dynamic word
+    let staticText = "Nisg̱a’a is ";
 
-    // Empty container and append static + dynamic
-    $headline.empty().append('Nisg̱a’a is ').append(dynamicWord);
+    // If dynamic span already exists, fade out and replace text
+    let $dynamicSpan = $headline.find('.dynamic-word');
 
-    // Fade in the word
-    setTimeout(() => {
-      dynamicWord.css('opacity', 1);
-    }, 50);
+    if ($dynamicSpan.length === 0) {
+      // First time: create span
+      $headline.html(staticText + '<span class="dynamic-word" style="opacity:0; transition: opacity 0.6s ease-in-out;">' + headlines[index].word + '</span>');
+      $dynamicSpan = $headline.find('.dynamic-word');
+      setTimeout(() => { $dynamicSpan.css('opacity', 1); }, 50);
+    } else {
+      // Fade out current word
+      $dynamicSpan.css('opacity', 0);
+      setTimeout(() => {
+        $dynamicSpan.text(headlines[index].word);
+        $dynamicSpan.css('opacity', 1);
+      }, 400);
+    }
   }
 
   function syncVideo() {
     const currentTime = video.currentTime;
 
     // Detect loop restart
-    if (currentTime < lastTime) {
-      currentIndex = -1;
-    }
-
+    if (currentTime < lastTime) currentIndex = -1;
     lastTime = currentTime;
 
-    // Loop through timeline from end to start
     for (let i = headlines.length - 1; i >= 0; i--) {
       if (currentTime >= headlines[i].time) {
         if (currentIndex !== i) {
@@ -84,8 +89,7 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    // Show initial headline: Nisg̱a’a is Land
-    updateHeadline(0);
+    updateHeadline(0); // initial display: Nisg̱a’a is Land
     currentIndex = 0;
 
     requestAnimationFrame(syncVideo);

@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
   const headlines = [
-    { word: "Land", time: 0.00 },
-    { word: "Water", time: 4.00 },
-    { word: "Environment", time: 7.00 },
-    { word: "Identity", time: 11.00 },
-    { word: "Language", time: 16.00 },
-    { word: "History", time: 20.00 },
-    { word: "People", time: 24.00 }
+    { word: "land", time: 0.00 },
+    { word: "water", time: 4.00 },
+    { word: "environment", time: 7.00 },
+    { word: "identity", time: 11.00 },
+    { word: "language", time: 16.00 },
+    { word: "history", time: 20.00 },
+    { word: "people", time: 24.00 }
   ];
 
   const $headline = $('#banner_headline .elementor-widget-container');

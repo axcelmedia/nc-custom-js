@@ -21,19 +21,20 @@ jQuery(document).ready(function ($) {
     .prop('type', 'text/css')
     .html(`
       .dynamic-word {
-        display: inline-block;
-        opacity: 0;
-        filter: blur(8px);
-        transition: opacity 1.2s ease-in-out, filter 1.2s ease-in-out;
-      }
-      .dynamic-word.visible {
-        opacity: 1;
-        filter: blur(0px);
-      }
-      .dynamic-word.hidden {
-        opacity: 0;
-        filter: blur(8px);
-      }
+  display: inline-block;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 1.2s ease-in-out, filter 1.2s ease-in-out;
+}
+.dynamic-word.visible {
+  opacity: 1;
+  filter: blur(0px);
+}
+.dynamic-word.hidden {
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
+}
     `)
     .appendTo('head');
 

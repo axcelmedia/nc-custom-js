@@ -13,6 +13,9 @@
 			text-align:center;
 	       padding-top: 100px;
         }
+.dynamic-word {
+  font-weight: 300;
+}
  
 /* Container for the changing word to enable scroll effect */
  

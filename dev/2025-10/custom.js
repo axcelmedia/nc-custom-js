@@ -27,7 +27,8 @@ jQuery(document).ready(function ($) {
     { word: "people", time: 24.00 }
   ];
 
-  const staticText = "Nisg̱a'a  <span class='isbold_text'>is</span>";
+  const staticText1 = "Nisg̱a'a ";
+  const staticText2 = "is";
   const $headline = $('#banner_headline .elementor-widget-container');
   if (!$headline.length) return;
 
@@ -59,8 +60,7 @@ jQuery(document).ready(function ($) {
 
   function setInstant(word) {
     $headline.html(
-      staticText +
-      '<span class="dynamic-word visible">' + word + '</span>'
+      staticText1+'<span class="isbold_text">'+staticText2+ '</span><span class="dynamic-word visible">' + word + '</span>'
     );
   }
 

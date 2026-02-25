@@ -25,17 +25,14 @@ jQuery(document).ready(function ($) {
     { word: "people", time: 24.00 }
   ];
 
+  const staticText = "Nisg̱a'a is ";
   const $headline = $('#banner_headline .elementor-widget-container');
   if ($headline.length === 0) return;
 
   let currentIndex = -1;
   let video;
-  let lastTime = 0;
-  let isLoopReset = false;
 
-  /* =========================
-     Inject Smooth Blur CSS
-  ========================== */
+  /* ===== Inject CSS ===== */
   $('<style>')
     .prop('type', 'text/css')
     .html(`
@@ -44,18 +41,16 @@ jQuery(document).ready(function ($) {
         min-width: 140px;
         opacity: 0;
         filter: blur(8px);
-        transition: opacity 1s ease, filter 1s ease;
-        will-change: opacity, filter;
+        transition: opacity 0.8s ease, filter 0.8s ease;
       }
-
       .dynamic-word.visible {
         opacity: 1;
         filter: blur(0px);
       }
-
       .dynamic-word.hidden {
         opacity: 0;
         filter: blur(8px);
+        transition: none !important; /* prevent fade glitch on reset */
       }
     `)
     .appendTo('head');
@@ -64,37 +59,21 @@ jQuery(document).ready(function ($) {
     return document.querySelector(".elementor-background-video-hosted");
   }
 
+  function setInstantWord(word) {
+    $headline.html(
+      staticText +
+      '<span class="dynamic-word visible">' + word + '</span>'
+    );
+  }
+
   function updateHeadline(index) {
-    const staticText = "Nisg̱a'a is ";
     let $dynamicSpan = $headline.find('.dynamic-word');
 
-    // First load
     if ($dynamicSpan.length === 0) {
-      $headline.html(
-        staticText +
-        '<span class="dynamic-word">' +
-        headlines[index].word +
-        '</span>'
-      );
-      $dynamicSpan = $headline.find('.dynamic-word');
-
-      setTimeout(() => {
-        $dynamicSpan.addClass('visible');
-      }, 50);
-
+      setInstantWord(headlines[index].word);
       return;
     }
 
-    // Skip animation if loop reset
-    if (isLoopReset) {
-      $dynamicSpan.removeClass('hidden')
-                  .addClass('visible')
-                  .text(headlines[index].word);
-      isLoopReset = false;
-      return;
-    }
-
-    // Normal transition
     $dynamicSpan.removeClass('visible').addClass('hidden');
 
     setTimeout(() => {
@@ -102,25 +81,11 @@ jQuery(document).ready(function ($) {
       requestAnimationFrame(() => {
         $dynamicSpan.removeClass('hidden').addClass('visible');
       });
-    }, 800);
+    }, 500);
   }
 
   function syncVideo() {
-    if (!video) return;
-
     const currentTime = video.currentTime;
-
-    // Detect video loop (restart to 0)
-    if (currentTime < lastTime) {
-      currentIndex = 0;
-      isLoopReset = true;
-      updateHeadline(0);
-      lastTime = currentTime;
-      requestAnimationFrame(syncVideo);
-      return;
-    }
-
-    lastTime = currentTime;
 
     for (let i = headlines.length - 1; i >= 0; i--) {
       if (currentTime >= headlines[i].time) {
@@ -143,11 +108,26 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    // Start with first word immediately
+    // Disable native looping
+    video.loop = false;
+
+    // FIRST WORD immediately
     currentIndex = 0;
-    updateHeadline(0);
+    setInstantWord("land");
 
     requestAnimationFrame(syncVideo);
+
+    // 🔥 PERFECT LOOP CONTROL
+    video.addEventListener('ended', function () {
+
+      // Instantly reset text BEFORE video restarts
+      currentIndex = 0;
+      setInstantWord("land");
+
+      // Restart video manually
+      video.currentTime = 0;
+      video.play();
+    });
   }
 
   waitForVideo();

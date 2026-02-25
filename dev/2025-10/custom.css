@@ -16,6 +16,10 @@
 .dynamic-word {
   font-weight: 300;
 }
+.isbold_text
+{
+	font-weight: 300;
+}
  
 /* Container for the changing word to enable scroll effect */
  

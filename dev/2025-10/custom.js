@@ -15,6 +15,8 @@ document.addEventListener("scroll", function() {
 });
 jQuery(document).ready(function ($) {
 
+  const VIDEO_DURATION = 30; // your exact video length
+
   const headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 4.00 },
@@ -27,12 +29,13 @@ jQuery(document).ready(function ($) {
 
   const staticText = "Nisg̱a'a is ";
   const $headline = $('#banner_headline .elementor-widget-container');
-  if ($headline.length === 0) return;
+  if (!$headline.length) return;
 
-  let currentIndex = -1;
   let video;
+  let currentIndex = -1;
+  let isResetting = false;
 
-  /* ===== Inject CSS ===== */
+  /* CSS */
   $('<style>')
     .prop('type', 'text/css')
     .html(`
@@ -41,16 +44,11 @@ jQuery(document).ready(function ($) {
         min-width: 140px;
         opacity: 0;
         filter: blur(8px);
-        transition: opacity 0.8s ease, filter 0.8s ease;
+        transition: opacity .6s ease, filter .6s ease;
       }
       .dynamic-word.visible {
         opacity: 1;
-        filter: blur(0px);
-      }
-      .dynamic-word.hidden {
-        opacity: 0;
-        filter: blur(8px);
-        transition: none !important; /* prevent fade glitch on reset */
+        filter: blur(0);
       }
     `)
     .appendTo('head');
@@ -59,78 +57,78 @@ jQuery(document).ready(function ($) {
     return document.querySelector(".elementor-background-video-hosted");
   }
 
-  function setInstantWord(word) {
+  function setInstant(word) {
     $headline.html(
       staticText +
       '<span class="dynamic-word visible">' + word + '</span>'
     );
   }
 
-  function updateHeadline(index) {
-    let $dynamicSpan = $headline.find('.dynamic-word');
+  function updateWord(index) {
+    if (isResetting) return;
 
-    if ($dynamicSpan.length === 0) {
-      setInstantWord(headlines[index].word);
+    const $span = $headline.find('.dynamic-word');
+
+    if (!$span.length) {
+      setInstant(headlines[index].word);
       return;
     }
 
-    $dynamicSpan.removeClass('visible').addClass('hidden');
+    $span.removeClass('visible');
 
     setTimeout(() => {
-      $dynamicSpan.text(headlines[index].word);
+      $span.text(headlines[index].word);
       requestAnimationFrame(() => {
-        $dynamicSpan.removeClass('hidden').addClass('visible');
+        $span.addClass('visible');
       });
-    }, 500);
+    }, 350);
   }
 
-  function syncVideo() {
-    const currentTime = video.currentTime;
+  function sync() {
+    if (!video) return;
+
+    const t = video.currentTime;
+
+    /* 🔥 HARD RESET at 29.7 seconds */
+    if (t >= VIDEO_DURATION - 0.3) {
+      if (!isResetting) {
+        isResetting = true;
+        currentIndex = 0;
+        setInstant("land");
+      }
+      requestAnimationFrame(sync);
+      return;
+    }
+
+    isResetting = false;
 
     for (let i = headlines.length - 1; i >= 0; i--) {
-      if (currentTime >= headlines[i].time) {
+      if (t >= headlines[i].time) {
         if (currentIndex !== i) {
           currentIndex = i;
-          updateHeadline(i);
+          updateWord(i);
         }
         break;
       }
     }
 
-    requestAnimationFrame(syncVideo);
+    requestAnimationFrame(sync);
   }
 
-  function waitForVideo() {
+  function init() {
     video = getVideo();
-
     if (!video) {
-      setTimeout(waitForVideo, 300);
+      setTimeout(init, 300);
       return;
     }
 
-    // Disable native looping
-    video.loop = false;
-
-    // FIRST WORD immediately
     currentIndex = 0;
-    setInstantWord("land");
+    setInstant("land");
 
-    requestAnimationFrame(syncVideo);
-
-    // 🔥 PERFECT LOOP CONTROL
-    video.addEventListener('ended', function () {
-
-      // Instantly reset text BEFORE video restarts
-      currentIndex = 0;
-      setInstantWord("land");
-
-      // Restart video manually
-      video.currentTime = 0;
-      video.play();
-    });
+    requestAnimationFrame(sync);
   }
 
-  waitForVideo();
+  init();
 
 });
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {

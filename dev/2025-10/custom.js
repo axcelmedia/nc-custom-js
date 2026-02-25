@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
 
   function setInstant(word) {
     $headline.html(
-      staticText1+'<span class="isbold_text">'+staticText2   + '&npsp;&npsp;</span><span class="dynamic-word visible">' + word + '</span>'
+      staticText1+'<span class="isbold_text">'+staticText2   + '</span><span class="dynamic-word visible">' + word + '</span>'
     );
   }
 

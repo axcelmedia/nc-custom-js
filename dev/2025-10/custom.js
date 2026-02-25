@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
   ];
 
   const staticText1 = "Nisg̱a'a ";
-  const staticText2 = "is";
+  const staticText2 = "is ";
   const $headline = $('#banner_headline .elementor-widget-container');
   if (!$headline.length) return;
 

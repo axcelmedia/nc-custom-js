@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
     { word: "people", time: 24.00 }
   ];
 
-  const staticText = "Nisg̱a'a is ";
+  const staticText = "Nisg̱a'a  <span class="isbold_text">is</span>";
   const $headline = $('#banner_headline .elementor-widget-container');
   if (!$headline.length) return;
 

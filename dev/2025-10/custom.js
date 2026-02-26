@@ -15,6 +15,8 @@ document.addEventListener("scroll", function() {
 });
 jQuery(document).ready(function ($) {
 
+  const VIDEO_DURATION = 30;
+
   const headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 4.00 },
@@ -33,7 +35,7 @@ jQuery(document).ready(function ($) {
   let video;
   let currentIndex = -1;
   let lastTime = 0;
-  let isAnimatingLoop = false;
+  let isResetting = false;
 
   /* ---------- CSS ---------- */
   $('<style>')
@@ -51,7 +53,6 @@ jQuery(document).ready(function ($) {
         opacity: 1;
       }
 
-      /* Blur + Glow ONLY on exit */
       .dynamic-word.blur-out {
         opacity: 0;
         filter: blur(8px);
@@ -79,7 +80,7 @@ jQuery(document).ready(function ($) {
   }
 
   function updateWord(index) {
-    if (isAnimatingLoop) return;
+    if (isResetting) return;
 
     const $span = $headline.find('.dynamic-word');
     if (!$span.length) {
@@ -87,7 +88,7 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    // Blur out current
+    // Blur out current word
     $span.removeClass('visible').addClass('blur-out');
 
     setTimeout(() => {
@@ -107,13 +108,14 @@ jQuery(document).ready(function ($) {
 
     const t = video.currentTime;
 
-    /* 🎯 Detect video loop properly */
+    /* Detect loop restart */
     if (t < lastTime) {
 
       const $span = $headline.find('.dynamic-word');
 
       if ($span.length) {
-        isAnimatingLoop = true;
+
+        isResetting = true;
 
         // Blur out last word (people)
         $span.removeClass('visible').addClass('blur-out');
@@ -121,8 +123,9 @@ jQuery(document).ready(function ($) {
         setTimeout(() => {
           currentIndex = 0;
           setInstant("land");
-          isAnimatingLoop = false;
+          isResetting = false;
         }, 600);
+
       } else {
         currentIndex = 0;
         setInstant("land");

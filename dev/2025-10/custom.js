@@ -114,32 +114,31 @@ jQuery(document).ready(function ($) {
   function sync() {
     if (!video) return;
 
-    const t = video.currentTime;
-
-    /* HARD RESET before loop */
     if (t >= VIDEO_DURATION - 0.3) {
-      if (!isResetting) {
-        isResetting = true;
+
+  if (!isResetting) {
+    isResetting = true;
+
+    const $span = $headline.find('.dynamic-word');
+
+    if ($span.length) {
+
+      // Blur out last word (people)
+      $span.removeClass('visible').addClass('blur-out');
+
+      setTimeout(() => {
         currentIndex = 0;
-        setInstant("land"); // instant reset without blur
-      }
-      requestAnimationFrame(sync);
-      return;
+        setInstant("land"); // show land clean after blur
+      }, 600); // match transition duration
+    } else {
+      currentIndex = 0;
+      setInstant("land");
     }
+  }
 
-    isResetting = false;
-
-    for (let i = headlines.length - 1; i >= 0; i--) {
-      if (t >= headlines[i].time) {
-        if (currentIndex !== i) {
-          currentIndex = i;
-          updateWord(i);
-        }
-        break;
-      }
-    }
-
-    requestAnimationFrame(sync);
+  requestAnimationFrame(sync);
+  return;
+}
   }
 
   function init() {

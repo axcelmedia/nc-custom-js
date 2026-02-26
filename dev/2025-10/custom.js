@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
 
       .dynamic-word.blur-out {
 		  opacity: 0;
-		  filter: blur(8px);
+		  filter: blur(10px);
 		  text-shadow:
 			0 0 10px rgba(255,255,255,0.9),
 			0 0 20px rgba(255,255,255,0.7),

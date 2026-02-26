@@ -114,7 +114,8 @@ jQuery(document).ready(function ($) {
   function sync() {
     if (!video) return;
 
-    if (t >= VIDEO_DURATION - 0.3) {
+    const t = video.currentTime;
+ if (t >= VIDEO_DURATION - 0.3) {
 
   if (!isResetting) {
     isResetting = true;
@@ -139,6 +140,7 @@ jQuery(document).ready(function ($) {
   requestAnimationFrame(sync);
   return;
 }
+    
   }
 
   function init() {

@@ -52,12 +52,13 @@ jQuery(document).ready(function ($) {
       }
 
       .dynamic-word.blur-out {
-        opacity: 0;
-        filter: blur(8px);
-        text-shadow:
-          0 0 10px rgba(255,255,255,0.9),
-          0 0 20px rgba(0,200,255,0.7);
-      }
+		  opacity: 0;
+		  filter: blur(8px);
+		  text-shadow:
+			0 0 10px rgba(255,255,255,0.9),
+			0 0 20px rgba(255,255,255,0.7),
+			0 0 40px rgba(255,255,255,0.5);
+		}
     `)
     .appendTo('head');
 

@@ -55,15 +55,17 @@ jQuery(document).ready(function ($) {
       /* Blur ONLY when exiting */
       .dynamic-word.blur-out {
   opacity: 0;
-  filter: blur(8px);
+  filter: blur(10px);
+  transform: scale(1.05);
   text-shadow:
-    0 0 8px rgba(255,255,255,0.8),
-    0 0 16px rgba(255,255,255,0.6),
-    0 0 24px rgba(255,255,255,0.4);
-  transition: 
-    opacity .6s ease, 
-    filter .6s ease, 
-    text-shadow .6s ease;
+    0 0 10px #ffffff,
+    0 0 20px #00eaff,
+    0 0 40px #00eaff;
+  transition:
+    opacity .6s ease,
+    filter .6s ease,
+    text-shadow .6s ease,
+    transform .6s ease;
 }
     `)
     .appendTo('head');

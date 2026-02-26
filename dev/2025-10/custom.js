@@ -15,8 +15,6 @@ document.addEventListener("scroll", function() {
 });
 jQuery(document).ready(function ($) {
 
-  const VIDEO_DURATION = 30; // your exact video length
-
   const headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 4.00 },
@@ -34,7 +32,8 @@ jQuery(document).ready(function ($) {
 
   let video;
   let currentIndex = -1;
-  let isResetting = false;
+  let lastTime = 0;
+  let isAnimatingLoop = false;
 
   /* ---------- CSS ---------- */
   $('<style>')
@@ -44,7 +43,7 @@ jQuery(document).ready(function ($) {
         display: inline-block;
         min-width: 140px;
         opacity: 0;
-        filter: blur(0); /* no blur by default */
+        filter: blur(0);
         transition: opacity .6s ease;
       }
 
@@ -52,21 +51,18 @@ jQuery(document).ready(function ($) {
         opacity: 1;
       }
 
-      /* Blur ONLY when exiting */
+      /* Blur + Glow ONLY on exit */
       .dynamic-word.blur-out {
-  opacity: 0;
-  filter: blur(10px);
-  transform: scale(1.05);
-  text-shadow:
-    0 0 10px #ffffff,
-    0 0 20px #00eaff,
-    0 0 40px #00eaff;
-  transition:
-    opacity .6s ease,
-    filter .6s ease,
-    text-shadow .6s ease,
-    transform .6s ease;
-}
+        opacity: 0;
+        filter: blur(8px);
+        text-shadow:
+          0 0 10px rgba(255,255,255,0.9),
+          0 0 20px rgba(0,200,255,0.7);
+        transition:
+          opacity .6s ease,
+          filter .6s ease,
+          text-shadow .6s ease;
+      }
     `)
     .appendTo('head');
 
@@ -83,32 +79,27 @@ jQuery(document).ready(function ($) {
   }
 
   function updateWord(index) {
-    if (isResetting) return;
+    if (isAnimatingLoop) return;
 
     const $span = $headline.find('.dynamic-word');
-
     if (!$span.length) {
       setInstant(headlines[index].word);
       return;
     }
 
-    // Step 1: Blur OUT current word
+    // Blur out current
     $span.removeClass('visible').addClass('blur-out');
 
-    // Step 2: After blur finishes, change text
     setTimeout(() => {
 
       $span.text(headlines[index].word);
-
-      // Remove blur completely
       $span.removeClass('blur-out');
 
-      // Step 3: Fade IN new word (no blur)
       requestAnimationFrame(() => {
         $span.addClass('visible');
       });
 
-    }, 600); // match CSS transition time
+    }, 600);
   }
 
   function sync() {
@@ -116,18 +107,33 @@ jQuery(document).ready(function ($) {
 
     const t = video.currentTime;
 
-    /* HARD RESET before loop */
-    if (t >= VIDEO_DURATION - 0.3) {
-      if (!isResetting) {
-        isResetting = true;
+    /* 🎯 Detect video loop properly */
+    if (t < lastTime) {
+
+      const $span = $headline.find('.dynamic-word');
+
+      if ($span.length) {
+        isAnimatingLoop = true;
+
+        // Blur out last word (people)
+        $span.removeClass('visible').addClass('blur-out');
+
+        setTimeout(() => {
+          currentIndex = 0;
+          setInstant("land");
+          isAnimatingLoop = false;
+        }, 600);
+      } else {
         currentIndex = 0;
-        setInstant("land"); // instant reset without blur
+        setInstant("land");
       }
+
+      lastTime = t;
       requestAnimationFrame(sync);
       return;
     }
 
-    isResetting = false;
+    lastTime = t;
 
     for (let i = headlines.length - 1; i >= 0; i--) {
       if (t >= headlines[i].time) {

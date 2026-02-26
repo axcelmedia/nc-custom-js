@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
   let currentIndex = -1;
   let isResetting = false;
 
-  /* CSS */
+  /* ---------- CSS ---------- */
   $('<style>')
     .prop('type', 'text/css')
     .html(`
@@ -44,12 +44,19 @@ jQuery(document).ready(function ($) {
         display: inline-block;
         min-width: 140px;
         opacity: 0;
-        filter: blur(8px);
-        transition: opacity .6s ease, filter .6s ease;
+        filter: blur(0); /* no blur by default */
+        transition: opacity .6s ease;
       }
+
       .dynamic-word.visible {
         opacity: 1;
-        filter: blur(0);
+      }
+
+      /* Blur ONLY when exiting */
+      .dynamic-word.blur-out {
+        opacity: 0;
+        filter: blur(8px);
+        transition: opacity .6s ease, filter .6s ease;
       }
     `)
     .appendTo('head');
@@ -60,7 +67,9 @@ jQuery(document).ready(function ($) {
 
   function setInstant(word) {
     $headline.html(
-      staticText1+'<span class="isbold_text">'+staticText2+ '</span><span class="dynamic-word visible">' + word + '</span>'
+      staticText1 +
+      '<span class="isbold_text">' + staticText2 + '</span>' +
+      '<span class="dynamic-word visible">' + word + '</span>'
     );
   }
 
@@ -74,14 +83,23 @@ jQuery(document).ready(function ($) {
       return;
     }
 
-    $span.removeClass('visible');
+    // Step 1: Blur OUT current word
+    $span.removeClass('visible').addClass('blur-out');
 
+    // Step 2: After blur finishes, change text
     setTimeout(() => {
+
       $span.text(headlines[index].word);
+
+      // Remove blur completely
+      $span.removeClass('blur-out');
+
+      // Step 3: Fade IN new word (no blur)
       requestAnimationFrame(() => {
         $span.addClass('visible');
       });
-    }, 350);
+
+    }, 600); // match CSS transition time
   }
 
   function sync() {
@@ -89,12 +107,12 @@ jQuery(document).ready(function ($) {
 
     const t = video.currentTime;
 
-    /* 🔥 HARD RESET at 29.7 seconds */
+    /* HARD RESET before loop */
     if (t >= VIDEO_DURATION - 0.3) {
       if (!isResetting) {
         isResetting = true;
         currentIndex = 0;
-        setInstant("land");
+        setInstant("land"); // instant reset without blur
       }
       requestAnimationFrame(sync);
       return;

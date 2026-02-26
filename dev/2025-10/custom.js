@@ -115,32 +115,31 @@ jQuery(document).ready(function ($) {
     if (!video) return;
 
     const t = video.currentTime;
- if (t >= VIDEO_DURATION - 0.3) {
 
-  if (!isResetting) {
-    isResetting = true;
-
-    const $span = $headline.find('.dynamic-word');
-
-    if ($span.length) {
-
-      // Blur out last word (people)
-      $span.removeClass('visible').addClass('blur-out');
-
-      setTimeout(() => {
+    /* HARD RESET before loop */
+    if (t >= VIDEO_DURATION - 0.3) {
+      if (!isResetting) {
+        isResetting = true;
         currentIndex = 0;
-        setInstant("land"); // show land clean after blur
-      }, 600); // match transition duration
-    } else {
-      currentIndex = 0;
-      setInstant("land");
+        setInstant("land"); // instant reset without blur
+      }
+      requestAnimationFrame(sync);
+      return;
     }
-  }
 
-  requestAnimationFrame(sync);
-  return;
-}
-    
+    isResetting = false;
+
+    for (let i = headlines.length - 1; i >= 0; i--) {
+      if (t >= headlines[i].time) {
+        if (currentIndex !== i) {
+          currentIndex = i;
+          updateWord(i);
+        }
+        break;
+      }
+    }
+
+    requestAnimationFrame(sync);
   }
 
   function init() {

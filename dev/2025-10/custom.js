@@ -54,10 +54,17 @@ jQuery(document).ready(function ($) {
 
       /* Blur ONLY when exiting */
       .dynamic-word.blur-out {
-        opacity: 0;
-        filter: blur(8px);
-        transition: opacity .6s ease, filter .6s ease;
-      }
+  opacity: 0;
+  filter: blur(8px);
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 16px rgba(255,255,255,0.6),
+    0 0 24px rgba(255,255,255,0.4);
+  transition: 
+    opacity .6s ease, 
+    filter .6s ease, 
+    text-shadow .6s ease;
+}
     `)
     .appendTo('head');
 

@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
         min-width: 140px;
         opacity: 0;
         filter: blur(0);
-        transition: opacity .6s ease;
+        transition: opacity .6s ease, filter .6s ease;
       }
 
       .dynamic-word.visible {
@@ -57,10 +57,6 @@ jQuery(document).ready(function ($) {
         text-shadow:
           0 0 10px rgba(255,255,255,0.9),
           0 0 20px rgba(0,200,255,0.7);
-        transition:
-          opacity .6s ease,
-          filter .6s ease,
-          text-shadow .6s ease;
       }
     `)
     .appendTo('head');
@@ -106,7 +102,7 @@ jQuery(document).ready(function ($) {
 
     const t = video.currentTime;
 
-    /* Detect video restart */
+    /* Detect video loop */
     if (t < lastTime) {
 
       const $span = $headline.find('.dynamic-word');
@@ -115,14 +111,18 @@ jQuery(document).ready(function ($) {
 
         isResetting = true;
 
-        // Start blur-out for "people"
+        // Start blur-out animation
         $span.removeClass('visible').addClass('blur-out');
 
-        // INSTANTLY show land (no delay)
-        currentIndex = 0;
-        setInstant("land");
+        // When blur animation ends → show land
+        $span.one('transitionend', function () {
 
-        isResetting = false;
+          currentIndex = 0;
+          setInstant("land");
+
+          isResetting = false;
+
+        });
 
       } else {
         currentIndex = 0;

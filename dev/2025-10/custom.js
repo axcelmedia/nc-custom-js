@@ -15,8 +15,6 @@ document.addEventListener("scroll", function() {
 });
 jQuery(document).ready(function ($) {
 
-  const VIDEO_DURATION = 30;
-
   const headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 4.00 },
@@ -108,7 +106,7 @@ jQuery(document).ready(function ($) {
 
     const t = video.currentTime;
 
-    /* Detect loop restart */
+    /* Detect video restart */
     if (t < lastTime) {
 
       const $span = $headline.find('.dynamic-word');
@@ -117,14 +115,14 @@ jQuery(document).ready(function ($) {
 
         isResetting = true;
 
-        // Blur out last word (people)
+        // Start blur-out for "people"
         $span.removeClass('visible').addClass('blur-out');
 
-        setTimeout(() => {
-          currentIndex = 0;
-          setInstant("land");
-          isResetting = false;
-        }, 600);
+        // INSTANTLY show land (no delay)
+        currentIndex = 0;
+        setInstant("land");
+
+        isResetting = false;
 
       } else {
         currentIndex = 0;

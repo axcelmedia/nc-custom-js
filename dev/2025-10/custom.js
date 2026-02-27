@@ -1,3 +1,18 @@
+document.addEventListener("scroll", function() {
+  const contents = document.querySelectorAll(".fade-content");
+  const windowHeight = window.innerHeight;
+  contents.forEach(function(content) {
+    const rect = content.getBoundingClientRect();
+    if (rect.top < windowHeight - 100) {
+      content.classList.add("show");
+      // Target the section overlay
+      const overlay = content.closest('.gradient-bg-overlay'); 
+      if (overlay) {
+        overlay.classList.add("overlaybg");
+      }
+    }
+  });
+});
 jQuery(document).ready(function ($) {
   const headlines = [
     { word: "land", time: 0.00 },
@@ -114,4 +129,14 @@ jQuery(document).ready(function ($) {
     requestAnimationFrame(sync);
   }
   init();
+});
+document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
+  const trapezoid = box.querySelector('.bg-hover');
+  if (!trapezoid) return;
+  box.addEventListener('mouseenter', () => {
+    trapezoid.classList.add('hover');
+  });
+  box.addEventListener('mouseleave', () => {
+    trapezoid.classList.remove('hover');
+  });
 });

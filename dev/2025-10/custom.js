@@ -14,7 +14,7 @@ document.addEventListener("scroll", function() {
   });
 });
 jQuery(document).ready(function ($) {
-  const headlines = [
+  var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 4.00 },
     { word: "environment", time: 7.00 },
@@ -88,7 +88,7 @@ jQuery(document).ready(function ($) {
     const t = video.currentTime;
     const duration = video.duration;
     /* Pre-emptively blur out "people" near end of video */
-    if (duration && t >= duration - 1.0 && !preBlurred) {
+    if (duration && t >= duration - 1.4 && !preBlurred) {
       preBlurred = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {

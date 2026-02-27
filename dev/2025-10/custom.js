@@ -16,12 +16,12 @@ document.addEventListener("scroll", function() {
 jQuery(document).ready(function ($) {
   var headlines = [
     { word: "land", time: 0.00 },
-    { word: "water", time: 4.00 },
-    { word: "environment", time: 7.00 },
-    { word: "identity", time: 11.00 },
-    { word: "language", time: 16.00 },
-    { word: "history", time: 20.00 },
-    { word: "people", time: 24.00 }
+    { word: "water", time: 3.2 },
+    { word: "environment", time: 7.08 },
+    { word: "identity", time: 10.29 },
+    { word: "language", time: 17.10 },
+    { word: "history", time: 20.10 },
+    { word: "people", time: 24.03 }
   ];
   const staticText1 = "Nisg̱a'a ";
   const staticText2 = "is ";

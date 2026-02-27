@@ -88,7 +88,7 @@ jQuery(document).ready(function ($) {
     const t = video.currentTime;
     const duration = video.duration;
     /* Pre-emptively blur out "people" near end of video */
-    if (duration && t >= duration - 1.4 && !preBlurred) {
+    if (duration && t >= duration - 1.6 && !preBlurred) {
       preBlurred = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {

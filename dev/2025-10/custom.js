@@ -1,11 +1,15 @@
-document.addEventListener("scroll", function() {
+/* ================= SCROLL FADE ================= */
+
+document.addEventListener("scroll", function () {
   const contents = document.querySelectorAll(".fade-content");
   const windowHeight = window.innerHeight;
-  contents.forEach(function(content) {
+
+  contents.forEach(function (content) {
     const rect = content.getBoundingClientRect();
     if (rect.top < windowHeight - 100) {
       content.classList.add("show");
-      const overlay = content.closest('.gradient-bg-overlay'); 
+
+      const overlay = content.closest(".gradient-bg-overlay");
       if (overlay) {
         overlay.classList.add("overlaybg");
       }
@@ -13,8 +17,11 @@ document.addEventListener("scroll", function() {
   });
 });
 
+
+/* ================= VIDEO HEADLINE SYNC ================= */
+
 jQuery(document).ready(function ($) {
-  console.log("here");
+console.log("hiii")
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },
@@ -24,17 +31,19 @@ jQuery(document).ready(function ($) {
     { word: "history", time: 20.10 },
     { word: "people", time: 24.03 }
   ];
+
   const staticText1 = "Nisg̱a'a ";
   const staticText2 = "is ";
+
   const $headline = $('#banner_headline .elementor-widget-container');
   if (!$headline.length) return;
+
   let video;
   let currentIndex = -1;
   let lastTime = 0;
-  let isResetting = false;
   let preBlurred = false;
 
-  /* ---------- CSS ---------- */
+  /* ---------- CSS Injection ---------- */
   $('<style>')
     .prop('type', 'text/css')
     .html(`
@@ -45,9 +54,11 @@ jQuery(document).ready(function ($) {
         filter: blur(0);
         transition: opacity .6s ease, filter .6s ease;
       }
+
       .dynamic-word.visible {
         opacity: 1;
       }
+
       .dynamic-word.blur-out {
         opacity: 0;
         filter: blur(10px);
@@ -59,57 +70,53 @@ jQuery(document).ready(function ($) {
     `)
     .appendTo('head');
 
+
   function getVideo() {
     return document.querySelector(".elementor-background-video-hosted");
   }
 
-  function setInstant(word) {
-    $headline.html(
-      staticText1 +
-      '<span class="isbold_text">' + staticText2 + '</span>' +
-      '<span class="dynamic-word visible">' + word + '</span>'
-    );
-  }
 
-  function setWithFadeIn(word) {
+  function renderWord(word, animate = true) {
     $headline.html(
       staticText1 +
       '<span class="isbold_text">' + staticText2 + '</span>' +
       '<span class="dynamic-word">' + word + '</span>'
     );
-    requestAnimationFrame(() => {
+
+    if (animate) {
       requestAnimationFrame(() => {
         $headline.find('.dynamic-word').addClass('visible');
       });
-    });
+    } else {
+      $headline.find('.dynamic-word').addClass('visible');
+    }
   }
 
+
   function updateWord(index) {
-    if (isResetting) return;
     const $span = $headline.find('.dynamic-word');
     if (!$span.length) {
-      setInstant(headlines[index].word);
+      renderWord(headlines[index].word);
       return;
     }
+
+    // Blur out current
     $span.removeClass('visible').addClass('blur-out');
+
     setTimeout(() => {
-      $span.text(headlines[index].word);
-      $span.removeClass('blur-out');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          $span.addClass('visible');
-        });
-      });
+      renderWord(headlines[index].word);
     }, 600);
   }
 
+
   function sync() {
     if (!video) return;
+
     const t = video.currentTime;
     const duration = video.duration;
 
-    /* Pre-emptively blur out "people" near end of video */
-    if (duration && t >= duration - 1.6 && !preBlurred) {
+    /* Pre-blur "people" before video ends */
+    if (duration && t >= duration - 1.5 && !preBlurred) {
       preBlurred = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {
@@ -119,17 +126,19 @@ jQuery(document).ready(function ($) {
 
     /* Detect video loop */
     if (t < lastTime) {
-      isResetting = true;
       currentIndex = 0;
       preBlurred = false;
+
+      // Fade-in land properly
+      renderWord("land", true);
+
       lastTime = t;
-      setWithFadeIn("land");
-      isResetting = false;
       requestAnimationFrame(sync);
       return;
     }
 
     lastTime = t;
+
     for (let i = headlines.length - 1; i >= 0; i--) {
       if (t >= headlines[i].time) {
         if (currentIndex !== i) {
@@ -139,30 +148,42 @@ jQuery(document).ready(function ($) {
         break;
       }
     }
+
     requestAnimationFrame(sync);
   }
 
+
   function init() {
     video = getVideo();
+
     if (!video) {
       setTimeout(init, 300);
       return;
     }
+
     currentIndex = 0;
-    setInstant("land");
+    renderWord("land", false); // first load no animation
     requestAnimationFrame(sync);
   }
 
   init();
+
 });
 
+
+/* ================= FEATURE HOVER ================= */
+
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
+
   const trapezoid = box.querySelector('.bg-hover');
   if (!trapezoid) return;
+
   box.addEventListener('mouseenter', () => {
     trapezoid.classList.add('hover');
   });
+
   box.addEventListener('mouseleave', () => {
     trapezoid.classList.remove('hover');
   });
+
 });

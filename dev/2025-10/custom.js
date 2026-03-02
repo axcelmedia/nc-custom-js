@@ -5,6 +5,7 @@ document.addEventListener("scroll", function() {
     const rect = content.getBoundingClientRect();
     if (rect.top < windowHeight - 100) {
       content.classList.add("show");
+      // Target the section overlay
       const overlay = content.closest('.gradient-bg-overlay'); 
       if (overlay) {
         overlay.classList.add("overlaybg");
@@ -12,7 +13,6 @@ document.addEventListener("scroll", function() {
     }
   });
 });
-
 jQuery(document).ready(function ($) {
   var headlines = [
     { word: "land", time: 0.00 },
@@ -32,7 +32,6 @@ jQuery(document).ready(function ($) {
   let lastTime = 0;
   let isResetting = false;
   let preBlurred = false;
-
   /* ---------- CSS ---------- */
   $('<style>')
     .prop('type', 'text/css')
@@ -57,11 +56,9 @@ jQuery(document).ready(function ($) {
       }
     `)
     .appendTo('head');
-
   function getVideo() {
     return document.querySelector(".elementor-background-video-hosted");
   }
-
   function setInstant(word) {
     $headline.html(
       staticText1 +
@@ -69,18 +66,6 @@ jQuery(document).ready(function ($) {
       '<span class="dynamic-word visible">' + word + '</span>'
     );
   }
-
-  function setWithFadeIn(word) {
-    $headline.html(
-      staticText1 +
-      '<span class="isbold_text">' + staticText2 + '</span>' +
-      '<span class="dynamic-word">' + word + '</span>'
-    );
-    requestAnimationFrame(() => {
-      $headline.find('.dynamic-word').addClass('visible');
-    });
-  }
-
   function updateWord(index) {
     if (isResetting) return;
     const $span = $headline.find('.dynamic-word');
@@ -98,12 +83,10 @@ jQuery(document).ready(function ($) {
       });
     }, 600);
   }
-
   function sync() {
     if (!video) return;
     const t = video.currentTime;
     const duration = video.duration;
-
     /* Pre-emptively blur out "people" near end of video */
     if (duration && t >= duration - 1.6 && !preBlurred) {
       preBlurred = true;
@@ -112,19 +95,17 @@ jQuery(document).ready(function ($) {
         $span.removeClass('visible').addClass('blur-out');
       }
     }
-
     /* Detect video loop */
     if (t < lastTime) {
       isResetting = true;
       currentIndex = 0;
-      setWithFadeIn("land");   // ← fade in consistently like all other words
+      setInstant("land");
       isResetting = false;
       preBlurred = false;
       lastTime = t;
       requestAnimationFrame(sync);
       return;
     }
-
     lastTime = t;
     for (let i = headlines.length - 1; i >= 0; i--) {
       if (t >= headlines[i].time) {
@@ -137,7 +118,6 @@ jQuery(document).ready(function ($) {
     }
     requestAnimationFrame(sync);
   }
-
   function init() {
     video = getVideo();
     if (!video) {
@@ -145,13 +125,11 @@ jQuery(document).ready(function ($) {
       return;
     }
     currentIndex = 0;
-    setInstant("land");   // first load = instant, no fade needed
+    setInstant("land");
     requestAnimationFrame(sync);
   }
-
   init();
 });
-
 document.querySelectorAll('.nisgaa-feature-post').forEach(box => {
   const trapezoid = box.querySelector('.bg-hover');
   if (!trapezoid) return;

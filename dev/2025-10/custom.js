@@ -21,7 +21,7 @@ document.addEventListener("scroll", function () {
 /* ================= VIDEO HEADLINE SYNC ================= */
 
 jQuery(document).ready(function ($) {
-console.log("hiii")
+console.log("hiii hello")
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },
@@ -116,7 +116,7 @@ console.log("hiii")
     const duration = video.duration;
 
     /* Pre-blur "people" before video ends */
-    if (duration && t >= duration - 1.5 && !preBlurred) {
+    if (duration && t >= duration - 1.2 && !preBlurred) {
       preBlurred = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {

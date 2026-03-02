@@ -14,6 +14,7 @@ document.addEventListener("scroll", function() {
 });
 
 jQuery(document).ready(function ($) {
+console.log("I am here");
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },

@@ -14,7 +14,7 @@ document.addEventListener("scroll", function() {
 });
 
 jQuery(document).ready(function ($) {
-console.log("I am here");
+console.log("code here");
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },
@@ -71,17 +71,6 @@ console.log("I am here");
     );
   }
 
-  function setWithFadeIn(word) {
-    $headline.html(
-      staticText1 +
-      '<span class="isbold_text">' + staticText2 + '</span>' +
-      '<span class="dynamic-word">' + word + '</span>'
-    );
-    requestAnimationFrame(() => {
-      $headline.find('.dynamic-word').addClass('visible');
-    });
-  }
-
   function updateWord(index) {
     if (isResetting) return;
     const $span = $headline.find('.dynamic-word');
@@ -89,14 +78,12 @@ console.log("I am here");
       setInstant(headlines[index].word);
       return;
     }
-    // Blur out current word
     $span.removeClass('visible').addClass('blur-out');
     setTimeout(() => {
       $span.text(headlines[index].word);
       $span.removeClass('blur-out');
-      requestAnimationFrame(() => {
-        $span.addClass('visible');
-      });
+      $span[0].getBoundingClientRect();
+      $span.addClass('visible');
     }, 600);
   }
 
@@ -105,21 +92,32 @@ console.log("I am here");
     const t = video.currentTime;
     const duration = video.duration;
 
-    /* Pre-emptively blur out "people" near end of video */
+    /* Pre-emptively blur out "people" then fade in "land" — all before loop */
     if (duration && t >= duration - 1.6 && !preBlurred) {
       preBlurred = true;
+      isResetting = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {
+        // Blur out "people"
         $span.removeClass('visible').addClass('blur-out');
+        // After blur done, fade "land" in while video still finishing
+        setTimeout(() => {
+          $headline.html(
+            staticText1 +
+            '<span class="isbold_text">' + staticText2 + '</span>' +
+            '<span class="dynamic-word">' + 'land' + '</span>'
+          );
+          const $newSpan = $headline.find('.dynamic-word');
+          $newSpan[0].getBoundingClientRect();
+          $newSpan.addClass('visible');
+          currentIndex = 0;
+          isResetting = false;
+        }, 600);
       }
     }
 
-    /* Detect video loop */
+    /* Detect video loop — "land" already visible, just reset flags */
     if (t < lastTime) {
-      isResetting = true;
-      currentIndex = 0;
-      setWithFadeIn("land");   // ← fade in consistently like all other words
-      isResetting = false;
       preBlurred = false;
       lastTime = t;
       requestAnimationFrame(sync);
@@ -146,7 +144,7 @@ console.log("I am here");
       return;
     }
     currentIndex = 0;
-    setInstant("land");   // first load = instant, no fade needed
+    setInstant("land");
     requestAnimationFrame(sync);
   }
 

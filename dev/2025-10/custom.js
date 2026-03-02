@@ -76,8 +76,11 @@ jQuery(document).ready(function ($) {
       '<span class="isbold_text">' + staticText2 + '</span>' +
       '<span class="dynamic-word">' + word + '</span>'
     );
+    // Double rAF ensures browser paints opacity:0 state before transitioning to visible
     requestAnimationFrame(() => {
-      $headline.find('.dynamic-word').addClass('visible');
+      requestAnimationFrame(() => {
+        $headline.find('.dynamic-word').addClass('visible');
+      });
     });
   }
 
@@ -88,13 +91,14 @@ jQuery(document).ready(function ($) {
       setInstant(headlines[index].word);
       return;
     }
-    // Blur out current word
     $span.removeClass('visible').addClass('blur-out');
     setTimeout(() => {
       $span.text(headlines[index].word);
       $span.removeClass('blur-out');
       requestAnimationFrame(() => {
-        $span.addClass('visible');
+        requestAnimationFrame(() => {
+          $span.addClass('visible');
+        });
       });
     }, 600);
   }
@@ -117,10 +121,13 @@ jQuery(document).ready(function ($) {
     if (t < lastTime) {
       isResetting = true;
       currentIndex = 0;
-      setWithFadeIn("land");   // ← fade in consistently like all other words
-      isResetting = false;
       preBlurred = false;
       lastTime = t;
+      // Small delay lets the blur-out fully settle before fading "land" in
+      setTimeout(() => {
+        setWithFadeIn("land");
+        isResetting = false;
+      }, 100);
       requestAnimationFrame(sync);
       return;
     }
@@ -145,7 +152,7 @@ jQuery(document).ready(function ($) {
       return;
     }
     currentIndex = 0;
-    setInstant("land");   // first load = instant, no fade needed
+    setInstant("land");
     requestAnimationFrame(sync);
   }
 

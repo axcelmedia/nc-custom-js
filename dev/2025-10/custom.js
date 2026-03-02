@@ -21,7 +21,7 @@ document.addEventListener("scroll", function () {
 /* ================= VIDEO HEADLINE SYNC ================= */
 
 jQuery(document).ready(function ($) {
-console.log("hiii hello")
+console.log("hiii hello");
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },

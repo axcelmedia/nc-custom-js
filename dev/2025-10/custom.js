@@ -77,9 +77,7 @@ jQuery(document).ready(function ($) {
       '<span class="dynamic-word">' + word + '</span>'
     );
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        $headline.find('.dynamic-word').addClass('visible');
-      });
+      $headline.find('.dynamic-word').addClass('visible');
     });
   }
 
@@ -90,14 +88,13 @@ jQuery(document).ready(function ($) {
       setInstant(headlines[index].word);
       return;
     }
+    // Blur out current word
     $span.removeClass('visible').addClass('blur-out');
     setTimeout(() => {
       $span.text(headlines[index].word);
       $span.removeClass('blur-out');
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          $span.addClass('visible');
-        });
+        $span.addClass('visible');
       });
     }, 600);
   }
@@ -120,10 +117,10 @@ jQuery(document).ready(function ($) {
     if (t < lastTime) {
       isResetting = true;
       currentIndex = 0;
+      setWithFadeIn("land");   // ← fade in consistently like all other words
+      isResetting = false;
       preBlurred = false;
       lastTime = t;
-      setWithFadeIn("land");
-      isResetting = false;
       requestAnimationFrame(sync);
       return;
     }
@@ -148,7 +145,7 @@ jQuery(document).ready(function ($) {
       return;
     }
     currentIndex = 0;
-    setInstant("land");
+    setInstant("land");   // first load = instant, no fade needed
     requestAnimationFrame(sync);
   }
 

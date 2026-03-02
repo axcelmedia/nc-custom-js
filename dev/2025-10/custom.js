@@ -14,7 +14,6 @@ document.addEventListener("scroll", function() {
 });
 
 jQuery(document).ready(function ($) {
-console.log("code here");
   var headlines = [
     { word: "land", time: 0.00 },
     { word: "water", time: 3.2 },
@@ -71,6 +70,19 @@ console.log("code here");
     );
   }
 
+  function setWithFadeIn(word) {
+    $headline.html(
+      staticText1 +
+      '<span class="isbold_text">' + staticText2 + '</span>' +
+      '<span class="dynamic-word">' + word + '</span>'
+    );
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        $headline.find('.dynamic-word').addClass('visible');
+      });
+    });
+  }
+
   function updateWord(index) {
     if (isResetting) return;
     const $span = $headline.find('.dynamic-word');
@@ -82,8 +94,11 @@ console.log("code here");
     setTimeout(() => {
       $span.text(headlines[index].word);
       $span.removeClass('blur-out');
-      $span[0].getBoundingClientRect();
-      $span.addClass('visible');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          $span.addClass('visible');
+        });
+      });
     }, 600);
   }
 
@@ -92,34 +107,23 @@ console.log("code here");
     const t = video.currentTime;
     const duration = video.duration;
 
-    /* Pre-emptively blur out "people" then fade in "land" — all before loop */
+    /* Pre-emptively blur out "people" near end of video */
     if (duration && t >= duration - 1.6 && !preBlurred) {
       preBlurred = true;
-      isResetting = true;
       const $span = $headline.find('.dynamic-word');
       if ($span.length) {
-        // Blur out "people"
         $span.removeClass('visible').addClass('blur-out');
-        // After blur done, fade "land" in while video still finishing
-        setTimeout(() => {
-          $headline.html(
-            staticText1 +
-            '<span class="isbold_text">' + staticText2 + '</span>' +
-            '<span class="dynamic-word">' + 'land' + '</span>'
-          );
-          const $newSpan = $headline.find('.dynamic-word');
-          $newSpan[0].getBoundingClientRect();
-          $newSpan.addClass('visible');
-          currentIndex = 0;
-          isResetting = false;
-        }, 600);
       }
     }
 
-    /* Detect video loop — "land" already visible, just reset flags */
+    /* Detect video loop */
     if (t < lastTime) {
+      isResetting = true;
+      currentIndex = 0;
       preBlurred = false;
       lastTime = t;
+      setWithFadeIn("land");
+      isResetting = false;
       requestAnimationFrame(sync);
       return;
     }

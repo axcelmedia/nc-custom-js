@@ -1,17 +1,25 @@
 #banner_headline {
-            font-size: 66px;
+            font-size: 80px;
             color: #fff;
             line-height: 1.2;
             font-weight: 400;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
 	        gap: 1px;
             position: relative;
 	        max-width:100%;
-			width:950px;
+			width: 100%;
 			text-align:center;
+	       padding-top: 100px;
         }
+.dynamic-word {
+  font-weight: 300;
+}
+.isbold_text
+{
+	font-weight: 300;
+}
  
 /* Container for the changing word to enable scroll effect */
  
